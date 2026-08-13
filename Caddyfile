@@ -11,6 +11,14 @@
 	root * /srv
 	encode zstd gzip
 
+	# Den gamle WordPress-side brugte to andre stier. Uden disse
+	# ville bogmærker, Facebook-opslag og Google-resultater ramme
+	# en 404 fra det øjeblik DNS peger herover.
+	redir /kalender-og-booking     /kalender/ permanent
+	redir /kalender-og-booking/    /kalender/ permanent
+	redir /ordenregler-vedtaegter-og-moder   /regler/ permanent
+	redir /ordenregler-vedtaegter-og-moder/  /regler/ permanent
+
 	# pæne URL'er: /kalender -> /kalender/index.html
 	try_files {path} {path}/index.html {path}/
 

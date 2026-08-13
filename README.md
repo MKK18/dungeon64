@@ -87,6 +87,17 @@ Førstegangsopsætning i Railway:
 
 Rollback: **Deployments** → vælg et tidligere deploy → **Redeploy**.
 
+### Omdirigeringer fra den gamle side
+
+Den tidligere WordPress-side brugte to andre stier. `Caddyfile` sender dem videre med 301, så gamle bogmærker og links ikke ender i en 404:
+
+| Gammel | Ny |
+|---|---|
+| `/kalender-og-booking/` | `/kalender/` |
+| `/ordenregler-vedtaegter-og-moder/` | `/regler/` |
+
+`/` og `/indmeldelse/` er uændrede.
+
 ### Er Railway det rigtige valg?
 
 Det virker, men det er værd at kende afvejningen nu hvor det er den rigtige side.
