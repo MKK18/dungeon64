@@ -1,8 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220">
   <rect width="220" height="220" rx="34" fill="#131a22"/>
-  <g fill="none" stroke="#e40712" stroke-width="13" stroke-linejoin="round">
-    <polygon points="110,24 186,68 186,156 110,200 34,156 34,68" fill="rgba(228,7,18,0.14)"/>
-    <polygon points="66,88 154,88 110,164"/>
-  </g>
-  <text x="110" y="128" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="52" fill="#f7f4ec">64</text>
+  <path d="M46 182V104a64 64 0 0 1 128 0v78Z" fill="rgba(176,34,42,0.16)" stroke="#b0222a" stroke-width="14" stroke-linejoin="round"/>
+  <rect x="36" y="184" width="148" height="14" rx="4" fill="#b0222a"/>
+  <text x="110" y="152" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="74" fill="#f7f4ec">64</text>
 </svg>

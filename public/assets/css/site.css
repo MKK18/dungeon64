@@ -1,5 +1,5 @@
 /* ============================================================
-   DUNGEON 64 — designkoncept for dungeon64.dk
+   DUNGEON 64 · dungeon64.dk
    Fælles stylesheet for alle sider.
 
    Farver: dyb navy-slate, boglig serif til overskrifter,
@@ -22,8 +22,11 @@
   --line:     #2e3d4d;
   --ink:      #f7f4ec;
   --muted:    #a4b2bf;
-  --red:      #e40712;
-  --red-hover:#f5242e;
+  --red:       #b0222a;
+  --red-hover: #c93038;
+  /* lys tone til glyffer og fleuroner på mørk bund, hvor --red
+     er for mørk til at læses. 6,42:1 mod baggrunden. */
+  --accent:    #f0787e;
   --gold:     #c0a865;
   --gold-dim: rgba(192, 168, 101, .14);
 
@@ -148,13 +151,26 @@ h3 { font-size: 1.3rem; }
   margin-right: auto;
 }
 .brand svg { display: block; }
+
+/* Logomærket: en hvælvet dør med husnummeret i åbningen.
+   Systemneutralt, i modsætning til en d20, som både binder
+   klubben til ét af de fem spil vi spiller og ligger for tæt
+   på D&D Beyonds eget mærke. */
+.mark-arch {
+  fill: rgba(176, 34, 42, .14);
+  stroke: var(--red);
+  stroke-width: 15;
+  stroke-linejoin: round;
+}
+.mark-sill { fill: var(--red); }
+.mark-num { fill: var(--ink); }
 .brand-name {
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.18rem;
   letter-spacing: .02em;
 }
-.brand-name span { color: var(--red-hover); }
+.brand-name span { color: var(--accent); }
 
 .topnav { display: flex; align-items: center; gap: 24px; }
 .topnav a {
@@ -169,10 +185,10 @@ h3 { font-size: 1.3rem; }
 .topnav a:hover { color: var(--ink); }
 .topnav a[aria-current="page"] { color: var(--ink); }
 .topnav a[aria-current="page"]:not(.btn) {
-  box-shadow: 0 2px 0 var(--red-hover);
+  box-shadow: 0 2px 0 var(--accent);
 }
 
-/* burger — kun under 900px */
+/* burger, kun under 900px */
 .nav-toggle {
   display: none;
   background: none;
@@ -294,7 +310,7 @@ h3 { font-size: 1.3rem; }
   text-transform: uppercase;
   color: var(--muted);
 }
-.hero-meta span::before { content: '\2726  '; color: var(--red-hover); }
+.hero-meta span::before { content: '\2726  '; color: var(--accent); }
 
 /* terningen */
 .die-zone { display: flex; flex-direction: column; align-items: center; gap: 18px; }
@@ -353,7 +369,7 @@ h3 { font-size: 1.3rem; }
   text-shadow: 0 1px 10px rgba(0, 0, 0, .8);
 }
 .die-result strong { color: var(--gold); font-weight: 800; font-style: normal; }
-.die-result.fumble strong { color: var(--red-hover); }
+.die-result.fumble strong { color: var(--accent); }
 
 /* ---------- sidehoved (undersider) ---------- */
 
@@ -400,7 +416,7 @@ h3 { font-size: 1.3rem; }
   white-space: nowrap;
 }
 .banner ul { display: contents; list-style: none; margin: 0; padding: 0; }
-.banner .fleuron { color: var(--red-hover); letter-spacing: 0; padding: 0 .9em; }
+.banner .fleuron { color: var(--accent); letter-spacing: 0; padding: 0 .9em; }
 
 /* ---------- sektioner ---------- */
 
@@ -663,7 +679,7 @@ h3 { font-size: 1.3rem; }
 .rules-list li strong { color: var(--ink); font-weight: 600; }
 .rule-glyph {
   font-family: var(--font-display);
-  color: #ff5a62;
+  color: var(--accent);
   font-weight: 800;
   font-size: 1rem;
   padding-top: .1em;
@@ -695,7 +711,7 @@ h3 { font-size: 1.3rem; }
   color: var(--ink);
 }
 .doc-links a:last-child { border-bottom: 0; }
-.doc-links a::after { content: '\2197'; color: var(--red-hover); }
+.doc-links a::after { content: '\2197'; color: var(--accent); }
 .doc-links a:hover { color: var(--gold); }
 
 /* ---------- kalender ---------- */

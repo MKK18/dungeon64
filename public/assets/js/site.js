@@ -1,4 +1,4 @@
-/* Dungeon 64 — fælles scripts: mobilmenu + d20 */
+/* Dungeon 64 · fælles scripts: mobilmenu og d20 */
 
 (function () {
   'use strict';
@@ -38,11 +38,36 @@
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var rolling = false;
 
+  /* Et resultat pr. øje. Med fire tekster gav 16 ud af 20 slag
+     det samme, og så er der ingen grund til at kaste to gange. */
+  var ROLLS = [
+    null,
+    'Din mini vælter på vej ned fra hylden. Den skal males om.',
+    'Terningen trillede ned bag reolen. Der ligger fire i forvejen.',
+    'Du fejler, men det bliver en god historie til fredagsbaren.',
+    'Din dungeon master smiler på dén måde. Det plejer ikke at være godt.',
+    'Du taber initiativet til en goblin, der har fået et navn.',
+    'Nok til at finde 3D-printeren. Ikke nok til at få kørekort til den.',
+    'Du rammer bordkanten. Hele hæren ryster, men den vælter ikke.',
+    'Du husker at rydde op efter dig. Skrald i skrald, pant i pant.',
+    'Lige akkurat nok til at få en stol ved bordet.',
+    'Midt imellem. Ligesom din første basecoat.',
+    'Du finder vej til Prags Boulevard. Døren er den med 64 over.',
+    'Initiativet er dit. Se ugens program.',
+    'Din linje holder en runde mere. Det er alt hvad der skulle til.',
+    'Du overtaler din dungeon master. Denne ene gang.',
+    'Du rammer, og modstanderen læser sit statblock igennem igen.',
+    'Din highlight sidder præcis hvor den skal. Ingen ved hvordan.',
+    'Du vinder draften. Husk at være flink bagefter.',
+    'Hele bordet kigger med. Du nyder det lidt for meget.',
+    'Så tæt på. Din dungeon master sukker og lader dig få den.',
+    'Kritisk hit. Nu er du vist nødt til at melde dig ind.'
+  ];
+
   function flavor(n) {
-    if (n === 20) return { cls: 'crit',   html: '<strong>Naturlig 20!</strong> Kritisk hit. Du er nødt til at melde dig ind nu.' };
-    if (n === 1)  return { cls: 'fumble', html: '<strong>Naturlig 1…</strong> Din mini vælter. Rejs den op og prøv igen.' };
-    if (n >= 12)  return { cls: '',       html: 'Du slår <strong>' + n + '</strong>. Initiativet er dit, så se ugens program.' };
-    return           { cls: '',       html: 'Du slår <strong>' + n + '</strong>. Nok til at finde vej til Prags Boulevard 50a.' };
+    if (n === 20) return { cls: 'crit',   html: '<strong>Naturlig 20!</strong> ' + ROLLS[20] };
+    if (n === 1)  return { cls: 'fumble', html: '<strong>Naturlig 1…</strong> ' + ROLLS[1] };
+    return { cls: '', html: 'Du slår <strong>' + n + '</strong>. ' + ROLLS[n] };
   }
 
   btn.addEventListener('click', function () {
