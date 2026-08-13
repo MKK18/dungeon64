@@ -264,7 +264,9 @@ h3 { font-size: 1.3rem; }
   gap: 48px;
   align-items: center;
   /* vandret padding gentages her, ellers overskriver shorthand .container's */
-  padding: 104px 24px 96px;
+  /* 151 frem for 104: chip-rækken over overskriften fyldte 47px, og
+     luften den gav er bevaret som padding. */
+  padding: 151px 24px 96px;
 }
 .hero h1 { font-size: clamp(2.7rem, 6vw, 4.8rem); font-weight: 900; }
 .hero p.sub {
@@ -803,7 +805,7 @@ footer .fineprint { font-size: .8rem; font-style: italic; }
 }
 
 @media (max-width: 900px) {
-  .hero-inner { padding: 64px 24px 60px; gap: 40px; }
+  .hero-inner { padding: 108px 24px 60px; gap: 40px; }
   .classes { grid-template-columns: 1fr; }
   .section, .section-art { padding: 64px 0; }
   .page-head { padding: 52px 0 44px; }
