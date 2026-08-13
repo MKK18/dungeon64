@@ -1,0 +1,915 @@
+/* ============================================================
+   DUNGEON 64 — designkoncept for dungeon64.dk
+   Fælles stylesheet for alle sider.
+
+   Farver: dyb navy-slate, boglig serif til overskrifter,
+   sans til brødtekst, rød CTA, guld som sparsom accent.
+   Baggrundskunst: John Martin & C.D. Friedrich (public domain).
+   ============================================================ */
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url(../fonts/playfair-display.woff2) format('woff2');
+}
+
+:root {
+  --ground:   #131a22;
+  --ground-2: #18212b;
+  --surface:  #1d2833;
+  --line:     #2e3d4d;
+  --ink:      #f7f4ec;
+  --muted:    #a4b2bf;
+  --red:      #e40712;
+  --red-hover:#f5242e;
+  --gold:     #c0a865;
+  --gold-dim: rgba(192, 168, 101, .14);
+
+  --font-display: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --w: 1100px;
+  --bar: 69px;
+
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  /* ellers lander ankre bag den klæbende topbar */
+  scroll-padding-top: calc(var(--bar) + 16px);
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--red); color: #fff; }
+
+a { color: var(--ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--gold); }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img { max-width: 100%; height: auto; }
+
+.container { max-width: var(--w); margin: 0 auto; padding: 0 24px; }
+/* over ::before/::after i kunst-sektionerne */
+.section-art > .container,
+.visit > .container { position: relative; z-index: 2; }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--red);
+  color: #fff;
+  padding: 12px 20px;
+  font-weight: 700;
+}
+.skip-link:focus { left: 0; color: #fff; }
+
+/* ---------- typografi & ornament ---------- */
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: .8rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 14px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  margin: 0;
+  text-wrap: balance;
+  font-weight: 800;
+}
+
+h2 { font-size: clamp(1.8rem, 3.2vw, 2.6rem); letter-spacing: .005em; }
+h3 { font-size: 1.3rem; }
+
+.lede { color: var(--muted); max-width: 62ch; font-size: 1.05rem; }
+
+/* konisk guldlinje (regelbogs-divider).
+   clip-path frem for indlejret SVG, så farven følger temaet. */
+.taper {
+  height: 5px;
+  width: min(280px, 55%);
+  margin-top: 18px;
+  background: var(--gold);
+  clip-path: polygon(0 0, 0 100%, 100% 50%);
+}
+
+/* ---------- topbar ---------- */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(19, 26, 34, .94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 13px 24px;
+  max-width: var(--w);
+  margin: 0 auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: var(--ink);
+  margin-right: auto;
+}
+.brand svg { display: block; }
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.18rem;
+  letter-spacing: .02em;
+}
+.brand-name span { color: var(--red-hover); }
+
+.topnav { display: flex; align-items: center; gap: 24px; }
+.topnav a {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: .8rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--muted);
+}
+.topnav a:hover { color: var(--ink); }
+.topnav a[aria-current="page"] { color: var(--ink); }
+.topnav a[aria-current="page"]:not(.btn) {
+  box-shadow: 0 2px 0 var(--red-hover);
+}
+
+/* burger — kun under 900px */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 8px 10px;
+  cursor: pointer;
+  line-height: 0;
+}
+.nav-toggle svg { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; }
+
+/* ---------- knapper ---------- */
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: .82rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 28px;
+  border: 1px solid rgba(247, 244, 236, .45);
+  border-radius: 4px;
+  color: var(--ink);
+  background: transparent;
+  cursor: pointer;
+  transition: transform .12s ease, background .12s ease, color .12s ease, border-color .12s ease;
+}
+.btn:hover {
+  border-color: var(--ink);
+  background: rgba(247, 244, 236, .07);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+.btn-red { background: var(--red); border-color: var(--red); color: #fff; }
+.btn-red:hover { background: var(--red-hover); border-color: var(--red-hover); color: #fff; }
+.btn-white { background: #fff; border-color: #fff; color: #16202a; }
+.btn-white:hover { background: var(--ink); border-color: var(--ink); color: #16202a; }
+.btn-sm { padding: 10px 18px; font-size: .78rem; }
+
+/* ---------- hero (forside) ---------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: var(--ground);
+}
+/* Kunsten ligger i ::before, så hvert tema kan behandle den for sig.
+   Et background-layer kan ikke filtreres alene. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url(../img/hero-manfred.jpg) 68% bottom / cover no-repeat;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(0deg, var(--ground) 0%, transparent 26%),
+    linear-gradient(90deg, rgba(19, 26, 34, .97) 6%, rgba(19, 26, 34, .78) 44%, rgba(19, 26, 34, .22) 100%);
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 48px;
+  align-items: center;
+  /* vandret padding gentages her, ellers overskriver shorthand .container's */
+  padding: 104px 24px 96px;
+}
+.hero-chiprow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 18px;
+}
+.chip {
+  background: var(--red);
+  color: #fff;
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+.hero-chiprow em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.hero h1 { font-size: clamp(2.7rem, 6vw, 4.8rem); font-weight: 900; }
+.hero p.sub {
+  margin: 24px 0 0;
+  max-width: 54ch;
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+.hero p.sub strong { color: var(--ink); font-weight: 600; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin-top: 40px;
+  font-weight: 600;
+  font-size: .82rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero-meta span::before { content: '\2726  '; color: var(--red-hover); }
+
+/* terningen */
+.die-zone { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.die-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(330px, 64vw);
+  aspect-ratio: 1;
+}
+.ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: ring-spin 100s linear infinite;
+}
+@keyframes ring-spin { to { transform: rotate(360deg); } }
+.die-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  line-height: 0;
+  border-radius: 12px;
+  position: relative;
+}
+.die-btn svg {
+  width: min(210px, 41vw);
+  height: auto;
+  filter: drop-shadow(0 8px 34px rgba(0, 0, 0, .65)) drop-shadow(0 0 26px rgba(192, 168, 101, .22));
+  transition: transform .15s ease;
+}
+.die-btn:hover svg { transform: scale(1.04) rotate(-2deg); }
+.die-btn.rolling svg { animation: die-roll .65s ease-in-out; }
+@keyframes die-roll {
+  0%   { transform: rotate(0deg)   scale(1); }
+  30%  { transform: rotate(-14deg) scale(1.07); }
+  60%  { transform: rotate(11deg)  scale(1.05); }
+  100% { transform: rotate(0deg)   scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .die-btn.rolling svg { animation: none; }
+  .ring { animation: none; }
+  .btn, .die-btn svg { transition: none; }
+}
+.die-result {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ink);
+  text-align: center;
+  min-height: 2.6em;
+  max-width: 36ch;
+  margin: 0;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, .8);
+}
+.die-result strong { color: var(--gold); font-weight: 800; font-style: normal; }
+.die-result.fumble strong { color: var(--red-hover); }
+
+/* ---------- sidehoved (undersider) ---------- */
+
+.page-head {
+  border-bottom: 1px solid var(--line);
+  padding: 76px 0 64px;
+  background:
+    linear-gradient(180deg, rgba(19, 26, 34, .55) 0%, var(--ground) 100%),
+    var(--ground-2);
+}
+.page-head h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 900; }
+.page-head .lede { margin: 22px 0 0; }
+
+.crumbs {
+  font-size: .8rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--gold); }
+.crumbs span { color: var(--line); padding: 0 8px; }
+
+/* ---------- banner ---------- */
+
+.banner {
+  border-bottom: 1px solid var(--line);
+  background: var(--ground-2);
+  padding: 15px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  row-gap: 4px;
+}
+.banner li {
+  font-weight: 700;
+  font-size: .78rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.banner ul { display: contents; list-style: none; margin: 0; padding: 0; }
+.banner .fleuron { color: var(--red-hover); letter-spacing: 0; padding: 0 .9em; }
+
+/* ---------- sektioner ---------- */
+
+.section { padding: 92px 0; border-bottom: 1px solid var(--line); }
+.section:last-of-type { border-bottom: 0; }
+.section-head { margin-bottom: 44px; }
+.section-head .lede { margin: 16px 0 0; }
+
+.section-art {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: var(--ground);
+  padding: 92px 0;
+}
+.section-art::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url(../img/pandemonium.jpg) center 34% / cover no-repeat;
+}
+.section-art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(180deg, var(--ground) 0%, rgba(19, 26, 34, .82) 18%, rgba(19, 26, 34, .84) 82%, var(--ground) 100%);
+}
+
+/* ---------- program (quest board) ---------- */
+
+.quest-board {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.quest-board caption {
+  text-align: left;
+  color: var(--muted);
+  font-size: .95rem;
+  padding-bottom: 18px;
+}
+.quest-board th {
+  font-weight: 700;
+  font-size: .74rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  padding: 0 28px 12px 14px;
+}
+.quest-board td {
+  border-bottom: 1px solid var(--line);
+  padding: 20px 28px 20px 14px;
+  vertical-align: baseline;
+}
+.quest-board tbody tr { transition: background .12s ease; }
+.quest-board tbody tr:hover { background: var(--gold-dim); }
+.quest-day {
+  font-weight: 700;
+  font-size: .78rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.quest-name { font-family: var(--font-display); font-weight: 800; font-size: 1.12rem; }
+.quest-desc {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: .94rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.quest-time {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.quest-cadence { font-size: .84rem; color: var(--muted); white-space: nowrap; }
+
+.tag {
+  display: inline-block;
+  font-weight: 700;
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+.tag-gold { color: var(--gold); border-color: var(--gold); }
+
+.board-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 14px 0;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* ---------- medlemskab ---------- */
+
+.classes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.class-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(29, 40, 51, .9);
+  backdrop-filter: blur(3px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 32px 28px 28px;
+  position: relative;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, .45);
+}
+.class-card.featured {
+  background: linear-gradient(160deg, #8d7439 0%, #b3985a 55%, #927a3e 100%);
+  border-color: var(--gold);
+}
+/* Mørk tekst på guld frem for hvid. Hvid gav 2,78:1 mod guldets
+   midtertone, altså under 3:1-grænsen for stor tekst. */
+.class-card.featured .class-level { color: rgba(43, 33, 9, .82); }
+.class-card.featured .class-body { color: #3a2d10; }
+.class-card.featured .class-body strong { color: #2b2109; }
+.class-card.featured .class-price { color: #2b2109; }
+.class-card.featured .class-price small { color: rgba(43, 33, 9, .78); }
+.class-card.featured .class-flag { background: #2b2109; color: #f3e6c4; }
+.class-card.featured .stat b { color: #2b2109; }
+.class-card.featured .stat span { color: #3a2d10; }
+.class-card.featured .taper { background: #2b2109; }
+.class-flag {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  background: var(--red);
+  color: #fff;
+  font-weight: 700;
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 3px;
+}
+.class-level {
+  font-weight: 700;
+  font-size: .74rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+.class-card h3 { font-size: 1.65rem; font-weight: 900; }
+.class-card .taper { margin-top: 12px; width: 100%; }
+.class-price {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2rem;
+  color: var(--gold);
+  margin: 16px 0 0;
+  font-variant-numeric: tabular-nums;
+}
+.class-price small {
+  font-family: var(--font-body);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.class-body { color: var(--muted); font-size: .96rem; margin: 14px 0 22px; }
+.class-body strong { color: var(--ink); }
+
+.statblock {
+  font-size: .9rem;
+  line-height: 1.55;
+  margin: auto 0 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 9px 14px;
+  padding-top: 4px;
+}
+.statblock .taper { margin: 0 0 10px; width: 100%; grid-column: 1 / -1; }
+.stat { display: contents; }
+.stat b {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding-top: .3em;
+}
+.stat span { color: var(--ink); }
+.class-card .btn { margin-top: 24px; text-align: center; }
+
+.howto {
+  margin-top: 30px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(24, 33, 43, .92);
+  backdrop-filter: blur(3px);
+  padding: 28px 30px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 22px;
+  align-items: start;
+}
+.howto-icon { font-size: 1.5rem; line-height: 1.2; color: var(--gold); }
+.howto p { margin: 0; color: var(--muted); font-size: .97rem; }
+.howto p + p { margin-top: 8px; font-style: italic; }
+.howto strong { color: var(--ink); }
+
+/* ---------- kodeks ---------- */
+
+.codex { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+.tenet {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 26px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.tenet-die {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--gold);
+  background: var(--gold-dim);
+  transform: rotate(45deg);
+  border-radius: 6px;
+}
+.tenet-die span { transform: rotate(-45deg); font-weight: 800; font-size: .76rem; color: var(--gold); }
+.tenet h3 { margin-bottom: 8px; font-size: 1.2rem; }
+.tenet p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+/* ---------- regler & dokumenter ---------- */
+
+.rules-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: start; }
+.rules-list { list-style: none; margin: 0; padding: 0; }
+.rules-list li {
+  display: flex;
+  gap: 18px;
+  padding: 18px 4px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .98rem;
+}
+.rules-list li strong { color: var(--ink); font-weight: 600; }
+.rule-glyph {
+  font-family: var(--font-display);
+  color: #ff5a62;
+  font-weight: 800;
+  font-size: 1rem;
+  padding-top: .1em;
+  flex-shrink: 0;
+  min-width: 2.2em;
+}
+.docs-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 28px;
+  position: sticky;
+  top: calc(var(--bar) + 24px);
+}
+.docs-card h3 { margin-bottom: 6px; }
+.docs-card > p { color: var(--muted); font-size: .94rem; margin: 0 0 18px; }
+.doc-links { display: flex; flex-direction: column; }
+.doc-links a {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 2px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: .84rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.doc-links a:last-child { border-bottom: 0; }
+.doc-links a::after { content: '\2197'; color: var(--red-hover); }
+.doc-links a:hover { color: var(--gold); }
+
+/* ---------- kalender ---------- */
+
+.cal-embed {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  aspect-ratio: 4 / 3;
+  min-height: 520px;
+}
+.cal-embed iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+.callout {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  background: var(--ground-2);
+  padding: 22px 26px;
+  color: var(--muted);
+  font-size: .97rem;
+}
+.callout strong { color: var(--ink); }
+.callout p { margin: 0; }
+.callout p + p { margin-top: 10px; }
+
+/* ---------- besøg ---------- */
+
+.visit {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 130px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--ground);
+}
+.visit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url(../img/wanderer.jpg) center 20% / cover no-repeat;
+}
+.visit::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(180deg, var(--ground) 0%, rgba(19, 26, 34, .72) 24%, rgba(19, 26, 34, .78) 78%, var(--ground) 100%);
+}
+.visit h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 900; text-shadow: 0 2px 18px rgba(0, 0, 0, .7); }
+.visit .taper-center {
+  margin: 22px auto 0;
+  width: 210px;
+  height: 5px;
+  background: var(--gold);
+  clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%);
+}
+.visit .lede { margin: 22px auto 0; color: var(--ink); opacity: .88; text-shadow: 0 1px 10px rgba(0, 0, 0, .8); }
+.visit-address {
+  font-size: 1rem;
+  color: var(--ink);
+  margin: 30px 0 0;
+  line-height: 1.9;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, .8);
+}
+.visit-address .addr-name { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; }
+.visit-address a { color: var(--gold); }
+.visit .hero-ctas { justify-content: center; }
+.facility-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 46px; list-style: none; padding: 0; }
+.visit .tag { background: rgba(19, 26, 34, .82); }
+
+/* ---------- footer ---------- */
+
+footer {
+  padding: 54px 0;
+  color: var(--muted);
+  font-size: .88rem;
+  border-top: 1px solid var(--line);
+}
+.foot-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 34px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 26px;
+}
+.foot-grid h4 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: .78rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 14px;
+}
+.foot-grid ul { list-style: none; margin: 0; padding: 0; }
+.foot-grid li { margin-bottom: 8px; }
+.foot-grid a { text-decoration: none; color: var(--muted); }
+.foot-grid a:hover { color: var(--gold); }
+.foot-inner { display: flex; flex-direction: column; gap: 10px; }
+footer .fineprint { font-size: .8rem; font-style: italic; }
+
+/* ---------- responsivt ---------- */
+
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .die-zone { display: none; }
+  .rules-grid { grid-template-columns: 1fr; }
+  .docs-card { position: static; }
+}
+
+@media (max-width: 900px) {
+  .hero-inner { padding: 64px 24px 60px; gap: 40px; }
+  .classes { grid-template-columns: 1fr; }
+  .section, .section-art { padding: 64px 0; }
+  .page-head { padding: 52px 0 44px; }
+  .visit { padding: 88px 0; }
+  .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+
+  /* mobilmenu erstatter de skjulte links */
+  .nav-toggle { display: block; }
+  .topbar-inner { gap: 14px; }
+  .topnav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--ground);
+    border-bottom: 1px solid var(--line);
+    padding: 8px 16px 20px;
+  }
+  .topnav.open { display: flex; }
+  .topnav a:not(.btn) {
+    padding: 15px 8px;
+    border-bottom: 1px solid var(--line);
+    font-size: .88rem;
+  }
+  .topnav .btn { margin-top: 16px; text-align: center; }
+
+  /* tabel bliver til kort */
+  .quest-board, .quest-board tbody, .quest-board tr, .quest-board td { display: block; width: 100%; }
+  .quest-board thead { position: absolute; left: -9999px; }
+  .quest-board tr { border-bottom: 1px solid var(--line); padding: 18px 2px; }
+  .quest-board td { border: 0; padding: 0 0 6px; }
+  .quest-board td:last-child { padding-bottom: 0; }
+  .quest-time, .quest-cadence { display: inline-block; margin-right: 14px; }
+}
+
+/* ============================================================
+   INDLEJREDE SVG-FARVER
+   ============================================================ */
+
+/* De indlejrede SVG'er sætter farver som attributter.
+   CSS på selve elementet vinder over en præsentationsattribut. */
+.brand svg > g { stroke: var(--red); }
+.brand svg text { fill: var(--ink); }
+.die-btn svg > g { stroke: var(--gold); }
+.die-btn svg text { fill: var(--ink); }
+/* g[fill] ville også ramme fill="none"-gruppen og fylde cirklerne ud */
+.ring circle { stroke: var(--gold); fill: none; }
+.ring rect { fill: var(--gold); }
+
+.die-btn svg { filter: drop-shadow(0 8px 34px rgba(0, 0, 0, .65)) drop-shadow(0 0 26px rgba(192, 168, 101, .22)); }
+
+/* ---------- lys visning: bogtrykkets detaljer ---------- */
+
+/* heroens slør går på tværs, ikke nedad */
+
+/* De tre malerier har vidt forskellige tonale områder, så én
+   global behandling kan ikke tjene dem alle. Martins to er mørke
+   med en lyskilde og skal løftes. Friedrichs tågehav er lyst i
+   forvejen og skal i stedet have kontrast, ellers forsvinder
+   vandreren helt. Hver planche får sin egen behandling. */
+
+/* Manfred: dyb kløft, lysende ånd. Løftes kraftigt. */
+
+/* Pandæmonium: brændende by. Lidt mere kontrast, så ilden læses. */
+
+/* Vandreren: lys tåge, mørk figur. Må næsten ikke løftes. */
+/* Figuren står midt i billedet, hvor teksten også står. Et
+   lodret slør bag tekstsøjlen frem for over hele fladen. */
+
+/* Sidehovedet får samme korn, så undersiderne ikke er nøgne. */
+.page-head { position: relative; overflow: hidden; }
+.page-head > .container { position: relative; z-index: 2; }
+
+/* Terningen. På mørk bund er den en lysende guldtråd. På papir
+   skal den være en raderet illustration: papirhvid flade,
+   kraftigere blæklinje, skygge som et fysisk objekt på et ark. */
+
+/* Hvid knap giver ingen mening på cremefarvet papir. */
+
+/* Kortene bliver trykte felter: hårfin indvendig højlys som
+   letterpress-kant, og en meget lav skygge i stedet for at svæve. */
+
+/* Rubricering: paragraftegnene er de røde initialer i en regelbog. */
+
+/* Kalenderen er hvid i sig selv og passer bedre på papir end i kælderen. */
+
+@media (max-width: 900px) {
+  .topbar-inner { gap: 10px; }
+}
+
+/* Med syv spilsystemer fylder banneret for meget på telefon.
+   Strammere tracking og tættere fleuroner, ikke færre spil. */
+@media (max-width: 600px) {
+  .banner { padding: 13px 16px; }
+  .banner li { font-size: .68rem; letter-spacing: .08em; }
+  .banner .fleuron { padding: 0 .45em; }
+}

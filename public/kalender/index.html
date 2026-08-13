@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalender og booking · Dungeon 64</title>
+<meta name="description" content="Ugens faste hold, åbne spilledage og events i Dungeon 64. Se den levende kalender og book lokalet i 4-timers blokke.">
+<link rel="canonical" href="https://dungeon64-koncept.example/kalender/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dungeon 64">
+<meta property="og:locale" content="da_DK">
+<meta property="og:title" content="Kalender og booking · Dungeon 64">
+<meta property="og:description" content="Faste hold, åbne spilledage og events. Book lokalet i 4-timers blokke efter først til mølle.">
+<meta property="og:url" content="https://dungeon64-koncept.example/kalender/">
+<meta property="og:image" content="https://dungeon64-koncept.example/assets/img/wanderer.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#131a22">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Spring til indhold</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/" aria-label="Dungeon 64 · forside">
+      <svg width="36" height="36" viewBox="0 0 220 220" aria-hidden="true">
+        <g fill="none" stroke="#e40712" stroke-width="11" stroke-linejoin="round">
+          <polygon points="110,10 196.6,60 196.6,160 110,210 23.4,160 23.4,60" fill="rgba(228,7,18,0.12)"/>
+          <polygon points="59.8,81 160.2,81 110,168"/>
+        </g>
+        <text x="110" y="124" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-weight="800" font-size="54" fill="#f7f4ec">64</text>
+      </svg>
+      <span class="brand-name">Dungeon <span>64</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav" aria-label="Åbn menu">
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M3 6h16M3 11h16M3 16h16"/></svg>
+    </button>
+    <nav class="topnav" id="topnav" aria-label="Hovedmenu">
+      <a href="/">Forside</a>
+      <a href="/indmeldelse/">Indmeldelse</a>
+      <a href="/kalender/" aria-current="page">Kalender</a>
+      <a href="/regler/">Regler</a>
+      <a class="btn btn-red btn-sm" href="/indmeldelse/">Bliv medlem</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="page-head">
+  <div class="container">
+    <p class="crumbs"><a href="/">Forside</a><span aria-hidden="true">/</span>Kalender og booking</p>
+    <p class="eyebrow">Quest board</p>
+    <h1>Kalender og booking</h1>
+    <div class="taper" aria-hidden="true"></div>
+    <p class="lede">Her kan du se bookinger og læse om vores begivenheder. De faste hold står herunder, og den levende kalender viser hvad der konkret sker i denne uge.</p>
+  </div>
+</div>
+
+<section class="section" id="fast-program">
+  <div class="container">
+    <div class="section-head">
+      <h2>Faste aktiviteter</h2>
+      <div class="taper" aria-hidden="true"></div>
+      <p class="lede">Nogle hold kører hver uge, andre hver anden uge. Old World-søndag og åben tabletop-dag skifter på skift, så der er noget hver søndag.</p>
+    </div>
+
+    <table class="quest-board">
+      <caption>Tilbagevendende aktiviteter. Konkrete datoer står i kalenderen længere nede.</caption>
+      <thead>
+        <tr><th scope="col">Dag</th><th scope="col">Aktivitet</th><th scope="col">Tid</th><th scope="col">Hvor tit</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="quest-day">Søndag</td>
+          <td><span class="quest-name">Old World Søndag</span><span class="quest-desc">Warhammer: The Old World. Tag din hær med, eller lån terræn på stedet.</span></td>
+          <td class="quest-time">11:00–18:00</td>
+          <td class="quest-cadence">Hver 2. uge</td>
+        </tr>
+        <tr>
+          <td class="quest-day">Søndag</td>
+          <td><span class="quest-name">Åben tabletop-dag</span><span class="quest-desc">Åbne borde til Warhammer 40K, Age of Sigmar og alt andet. Ingen tilmelding, og du behøver ikke tage noget med.</span></td>
+          <td class="quest-time">11:00–16:00</td>
+          <td class="quest-cadence">Hver 2. uge</td>
+        </tr>
+        <tr>
+          <td class="quest-day">Mandag</td>
+          <td><span class="quest-name">D&amp;D hold 1</span><span class="quest-desc">Fast hold med frivillig dungeon master. For medlemmer 11–17 år.</span></td>
+          <td class="quest-time">17:00–18:30</td>
+          <td class="quest-cadence">Ugentligt</td>
+        </tr>
+        <tr>
+          <td class="quest-day">Tirsdag</td>
+          <td><span class="quest-name">D&amp;D hold 2</span><span class="quest-desc">Fast hold med frivillig dungeon master. For medlemmer 11–17 år.</span></td>
+          <td class="quest-time">16:30–18:00</td>
+          <td class="quest-cadence">Ugentligt</td>
+        </tr>
+        <tr>
+          <td class="quest-day">Tirsdag</td>
+          <td><span class="quest-name">D&amp;D hold 3</span><span class="quest-desc">Fast hold med frivillig dungeon master. For medlemmer 11–17 år.</span></td>
+          <td class="quest-time">18:30–20:00</td>
+          <td class="quest-cadence">Ugentligt</td>
+        </tr>
+        <tr>
+          <td class="quest-day">Onsdag</td>
+          <td><span class="quest-name">D&amp;D · 2770 Drengene</span><span class="quest-desc">Aftenkampagne for voksne medlemmer.</span></td>
+          <td class="quest-time">18:00–22:00</td>
+          <td class="quest-cadence">Hver 2. uge</td>
+        </tr>
+        <tr>
+          <td class="quest-day">Torsdag</td>
+          <td><span class="quest-name">D&amp;D hold 4</span><span class="quest-desc">Ugens sidste hold. For medlemmer 11–17 år.</span></td>
+          <td class="quest-time">17:30–21:00</td>
+          <td class="quest-cadence">Hver 2. uge</td>
+        </tr>
+        <tr>
+          <td class="quest-day">Fredag</td>
+          <td><span class="quest-name">D64 Fredagsbar</span><span class="quest-desc">Hyggeaften for medlemmer og venner. Maling, spil og god stemning.</span></td>
+          <td class="quest-time">Aften</td>
+          <td class="quest-cadence">Sidste fredag i måneden</td>
+        </tr>
+        <tr>
+          <td class="quest-day">Lørdag</td>
+          <td><span class="quest-name">MtG: Legacy Draft</span><span class="quest-desc">Magic: The Gathering-draft med medlemsrabat.</span></td>
+          <td class="quest-time">12:00–16:00</td>
+          <td class="quest-cadence">Hver 2. uge</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="board-foot">
+      <span>Alle hold for børn holder ferie i uge 27–32 samt uge 51, 52, 1 og 2.</span>
+      <a class="btn btn-sm" href="/indmeldelse/">Skriv dig op til et hold</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="kalender">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Levende kalender</p>
+      <h2>Hvad sker der lige nu</h2>
+      <div class="taper" aria-hidden="true"></div>
+      <p class="lede">Kalenderen viser både faste hold, events og medlemmernes bookinger af lokalet.</p>
+    </div>
+
+    <div class="cal-embed">
+      <iframe
+        title="Dungeon 64 kalender"
+        src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=2&amp;ctz=Europe%2FCopenhagen&amp;showPrint=0&amp;showTz=0&amp;showTabs=1&amp;showCalendars=0&amp;mode=WEEK&amp;src=ZHVuZ2VvbmQ2NEBnbWFpbC5jb20&amp;src=NTY0YjMzYjczZDg2ZDJjODcyZTA1NTljNjkwMDUwMjk4NjQ4NTI3NDQ2ZjYxMWUyNWRhNmY3YjBkODY0ODY5ZkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23F4511E&amp;color=%237CB342"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <p style="margin-top:16px;color:var(--muted);font-size:.9rem">Kan du ikke se kalenderen? Åbn den direkte hos <a href="https://calendar.google.com/calendar/embed?ctz=Europe%2FCopenhagen&amp;src=ZHVuZ2VvbmQ2NEBnbWFpbC5jb20">Google Kalender</a>.</p>
+  </div>
+</section>
+
+<section class="section" id="booking">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Book lokalet</p>
+      <h2>Sådan booker du</h2>
+      <div class="taper" aria-hidden="true"></div>
+    </div>
+
+    <div class="rules-grid">
+      <div>
+        <ol class="rules-list">
+          <li><span class="rule-glyph">1</span><span><strong>Booking kræver et D64-medlemskab.</strong> Er du under 18, går det gennem dit hold og din dungeon master.</span></li>
+          <li><span class="rule-glyph">2</span><span><strong>Lokalet bookes i blokke af 4 timer</strong> ad gangen gennem kalenderen, efter først til mølle. Så kan alle komme til.</span></li>
+          <li><span class="rule-glyph">3</span><span><strong>Ryd op efter dig selv,</strong> så det næste hold møder et bord de kan spille på. Skrald i skrald. Tis i toilet. Pant i pant.</span></li>
+        </ol>
+
+        <div class="callout" style="margin-top: 34px;">
+          <p><strong>3D-printeren kræver kørekort.</strong> Bestyrelsen udsteder det. Man kan ikke dø af printeren, men man kan hurtigt tømme foreningens konto.</p>
+        </div>
+      </div>
+
+      <aside class="docs-card">
+        <h3>Genveje</h3>
+        <p>De fulde regler for brug af lokalet står i ordensreglerne.</p>
+        <nav class="doc-links" aria-label="Genveje">
+          <a href="/regler/">Ordensregler</a>
+          <a href="/indmeldelse/">Bliv medlem</a>
+          <a href="mailto:dungeond64@gmail.com">Skriv til bestyrelsen</a>
+        </nav>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h4>Dungeon 64</h4>
+        <p style="margin:0">Folkeoplysende forening på Amagerbro for figurrollespil, wargaming og miniaturehobby.<br>
+        Prags Boulevard 50a · 2300 København S<br>
+        <a href="mailto:dungeond64@gmail.com">dungeond64@gmail.com</a></p>
+      </div>
+      <div>
+        <h4>Sider</h4>
+        <ul>
+          <li><a href="/">Forside</a></li>
+          <li><a href="/indmeldelse/">Indmeldelse</a></li>
+          <li><a href="/kalender/">Kalender og booking</a></li>
+          <li><a href="/regler/">Ordensregler og vedtægter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Dokumenter</h4>
+        <ul>
+          <li><a href="https://docs.google.com/document/d/1GcFueKKS6mi0-sZHofbvWIyRvpbyuGpB4iEu3Vz4jX4/edit?usp=sharing">Vedtægter</a></li>
+          <li><a href="https://docs.google.com/document/d/1QMIMZHDI-MuBDFklo9zzyLZE-B5Tr-65SEzSZY8RuJo/edit?usp=sharing">Mødereferater 2025</a></li>
+          <li><a href="https://docs.google.com/document/d/107oh1U_j5Sm7NUteaShTrr9EOuNR7RcVkP0bMh379DU/edit?usp=sharing">Mødereferater 2024</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-inner">
+      <span>© Dungeon 64 · Folkeoplysende forening på Amagerbro</span>
+      <span class="fineprint">Dette er et uofficielt designkoncept, ikke foreningens officielle hjemmeside. Den officielle side ligger på <a href="https://www.dungeon64.dk">dungeon64.dk</a>.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js" defer></script>
+</body>
+</html>
