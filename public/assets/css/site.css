@@ -266,30 +266,6 @@ h3 { font-size: 1.3rem; }
   /* vandret padding gentages her, ellers overskriver shorthand .container's */
   padding: 104px 24px 96px;
 }
-.hero-chiprow {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 0 0 18px;
-}
-.chip {
-  background: var(--red);
-  color: #fff;
-  font-weight: 700;
-  font-size: .72rem;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-  padding: 5px 10px;
-  border-radius: 3px;
-}
-.hero-chiprow em {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--ink);
-}
 .hero h1 { font-size: clamp(2.7rem, 6vw, 4.8rem); font-weight: 900; }
 .hero p.sub {
   margin: 24px 0 0;
