@@ -1,4 +1,4 @@
-# Uofficielt designkoncept. Skal ikke indekseres, så det ikke
-# konkurrerer med foreningens rigtige side på dungeon64.dk.
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://www.dungeon64.dk/sitemap.xml

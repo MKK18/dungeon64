@@ -1,14 +1,19 @@
-# Dungeon 64 · designkoncept
+# dungeon64.dk
 
-Uofficielt redesign af [dungeon64.dk](https://www.dungeon64.dk) som et rigtigt flersidet site. Statiske filer, ingen build, ingen dependencies.
+Hjemmeside for **Dungeon 64**, folkeoplysende forening på Amagerbro for figurrollespil, wargaming og miniaturehobby.
 
-**Dette er ikke foreningens officielle side.** Alle sider har en tydelig disclaimer i footeren, og `robots.txt` blokerer indeksering, så konceptet ikke konkurrerer med den rigtige side i søgeresultater.
+Statiske filer. Ingen build, ingen dependencies, ingen database. Rediger HTML, push, og siden er opdateret.
+
+| | |
+|---|---|
+| Produktion | https://www.dungeon64.dk |
+| Hosting | Railway (Caddy i Docker) |
+| Repo | https://github.com/MKK18/dungeon64 |
+| Sprog | Dansk (`lang="da"`) |
 
 ---
 
 ## Sider
-
-Samme struktur som det rigtige site, som har fire sider.
 
 | Rute | Fil | Indhold |
 |---|---|---|
@@ -18,13 +23,11 @@ Samme struktur som det rigtige site, som har fire sider.
 | `/regler/` | `public/regler/index.html` | De syv ordensregler, tryghed, vedtægter og referater |
 | `404` | `public/404.html` | Fejlside |
 
-## Filer
-
 ```
-dungeon64/
+.
 ├── public/
 │   ├── index.html · indmeldelse/ · kalender/ · regler/ · 404.html
-│   ├── favicon.svg · robots.txt
+│   ├── favicon.svg · robots.txt · sitemap.xml
 │   └── assets/
 │       ├── css/site.css          fælles stylesheet
 │       ├── js/site.js            mobilmenu, d20
@@ -35,9 +38,27 @@ dungeon64/
 └── railway.json
 ```
 
-## Lokal kørsel
+Der er ingen templating. Topbar og footer står i hver fil, så en ændring i menuen skal laves fem steder. Det er bevidst: fem filer uden værktøjskæde er lettere at overtage for en frivillig end et statisk site-generator-setup, der skal holdes opdateret. Bliver det til flere end otte-ti sider, er afvejningen en anden.
 
-Alt der kan servere en mappe virker.
+---
+
+## Ret indhold
+
+De ting der oftest skal opdateres.
+
+| Hvad | Hvor |
+|---|---|
+| Priser og medlemskaber | `.classes`-blokken i `index.html` og `indmeldelse/index.html`. Findes to steder, hold dem ens. |
+| Faste holdtider | `.quest-board`-tabellen i `index.html` og `kalender/index.html`. Findes to steder. |
+| Ordensregler | `.rules-list` i `regler/index.html` |
+| Links til vedtægter og referater | Footeren i alle fire sider, plus `.doc-links` i `regler/index.html` |
+| Adresse og mail | Footeren i alle fire sider |
+
+Kalenderen skal ikke opdateres. Den henter direkte fra foreningens Google-kalender (`dungeond64@gmail.com`), så det bestyrelsen skriver ind i kalenderen, står på siden med det samme. Programtabellen ovenfor er derimod håndskrevet og skal rettes manuelt, når faste hold ændrer sig.
+
+---
+
+## Lokal kørsel
 
 ```bash
 npx serve public -l 8747
@@ -49,63 +70,71 @@ Eller præcis som i produktion:
 docker build -t dungeon64 . && docker run --rm -p 8080:8080 -e PORT=8080 dungeon64
 ```
 
+Docker-versionen er den der gælder, hvis noget opfører sig forskelligt. Den tester også pæne URL'er (`/kalender` uden skråstreg) og at 404-siden svarer med en rigtig 404-status.
+
 ---
 
-## Deploy på Railway
+## Deploy
 
-`Dockerfile` og `railway.json` ligger klar. Caddy lytter på `$PORT`, som Railway sætter selv.
+Railway bygger `Dockerfile` og deployer automatisk ved hvert push til `main`. Caddy lytter på `$PORT`, som Railway sætter.
 
-```bash
-railway login
-railway link          # vælg eller opret projekt
-railway up
-```
+Førstegangsopsætning i Railway:
 
-Eller via GitHub, hvilket er det der er sat op her:
+1. **New Project** → **Deploy from GitHub repo** → `MKK18/dungeon64`
+2. Railway finder selv `Dockerfile` i roden
+3. **Settings** → **Networking** → **Custom Domain** → `www.dungeon64.dk`
+4. Læg den viste CNAME hos DNS-udbyderen. Railway håndterer certifikatet.
 
-1. **New Project** → **Deploy from GitHub repo** → vælg `MKK18/dungeon64`
-2. Railway finder selv `Dockerfile` i roden. Ingen Root Directory at sætte, fordi repoet kun indeholder dette projekt.
-3. **Settings** → **Networking** → **Generate Domain**
-4. Deploy sker automatisk ved hvert push til `main`
-
-Egen adresse: tilføj domænet under **Settings** → **Networking** → **Custom Domain** og læg den viste CNAME hos din DNS-udbyder. Railway håndterer certifikatet.
-
-### Efter deploy
-
-Ret domænet i de fire `<head>`-blokke. Der står `https://dungeon64-koncept.example` i `canonical`, `og:url` og `og:image`. Absolutte URL'er er et krav for Open Graph, så link-previews i Messenger og Slack virker først når det er rettet.
-
-```bash
-cd public
-grep -rl "dungeon64-koncept.example" . | xargs sed -i '' 's|https://dungeon64-koncept.example|https://DIT-DOMÆNE|g'
-```
+Rollback: **Deployments** → vælg et tidligere deploy → **Redeploy**.
 
 ### Er Railway det rigtige valg?
 
-Kort svar: det virker fint, og at have det samme sted som dine andre projekter er en reel fordel. Men det er værd at kende afvejningen.
+Det virker, men det er værd at kende afvejningen nu hvor det er den rigtige side.
 
-Det her er 100 % statiske filer. Railway kører en container døgnet rundt for at sende dem ud, og du betaler for oppetid. Cloudflare Pages, Netlify og GitHub Pages er gratis for det her, ligger på et globalt CDN i stedet for én region, og har ingen container der kan falde ned. For et klubsite med dansk trafik betyder CDN'et ikke meget, men prisen og de nul vedligeholdelsespunkter gør.
+Det her er 100 % statiske filer. Railway kører en container døgnet rundt for at sende dem ud, og der betales for oppetid. Cloudflare Pages og Netlify er gratis for præcis det her, ligger på et globalt CDN i stedet for én region, og har ingen container der kan falde ned klokken to om natten. For en forening uden driftsvagt er "der er ingen server" en reel fordel frem for en teknisk detalje.
 
-Modargumentet, som holder: du kender Railway, deployment-pipelinen er sat op, og du slipper for endnu en konto og endnu et sted at holde øje med. For et koncept der måske lever et par måneder er det den rigtige prioritering.
+Modargumentet: Railway er kendt terræn, pipelinen kører, og der skal ikke oprettes endnu en konto. For et site med denne trafik er forskellen i praksis mest et spørgsmål om pris, og om hvem der får besked hvis noget stopper.
 
-Skifter du mening, er der intet at migrere. Peg Cloudflare Pages på `dungeon64/public` som output-mappe uden build-kommando, og det er samme site. `Dockerfile` og `Caddyfile` er de eneste filer der bliver overflødige.
+Skifter I mening, er der intet at migrere. Peg Cloudflare Pages på `public` som output-mappe uden build-kommando, og det er samme site. `Dockerfile` og `Caddyfile` er de eneste filer der bliver overflødige.
 
 ---
 
 ## Åbne punkter
 
-Ting der skal afklares med foreningen, før noget af dette peger på et rigtigt domæne.
+### 1. Trade dress ligger for tæt på D&D Beyond
 
-| Punkt | Status |
-|---|---|
-| **Tilmeldingslink** | Mangler. Medlemskaberne betales online med kort eller MobilePay, men linket til medlemssystemet er ikke offentligt endnu. Der står en tydelig rød note på `/indmeldelse/` hvor det skal ind. |
-| **Varemærker** | "Dungeons & Dragons", "Warhammer 40K", "Age of Sigmar", "The Old World" og "Magic: The Gathering" står som ren tekst, hvilket normalt er i orden. Farvepalet og guldkort-mønster ligger tæt på D&D Beyond, og logoet er en rød d20, hvilket er deres eget mærke. Bør ændres før publicering på et rigtigt domæne. |
-| **Mailadresse** | `dungeond64@gmail.com` er kopieret ordret fra foreningens side. Det ekstra `d` skal bekræftes. |
-| **Egne billeder** | De tre malerier er public domain-stand-ins. Foreningens egne fotos af malede figurer vil være et markant løft. |
-| **Programdata** | Hentet fra foreningens offentlige Google-kalender, ikke gættet. Se noten nedenfor om uoverensstemmelsen med indmeldelsessiden. |
+Det vigtigste punkt på listen, og det er blevet vigtigere nu hvor siden er foreningens officielle ansigt og ikke et udkast.
 
-### Note om holdtider
+Farven `#e40712` er D&D Beyond's signaturrøde. Kombineret med den mørke navy-bund, guldkortet i medlemssektionen og et **logo der er en rød d20**, ligger siden meget tæt på et officielt Wizards of the Coast-produkt. D&D Beyond's eget mærke er netop en rød d20.
 
-Programtabellen er bygget på foreningens egen offentlige kalender (`dungeond64@gmail.com`), hvor de faste hold ligger som gentagne begivenheder. Den siger:
+At nævne "Dungeons & Dragons", "Warhammer 40K", "Age of Sigmar", "The Old World" og "Magic: The Gathering" som ren tekst er normalt uproblematisk. En forening må gerne fortælle hvad den spiller. Problemet er ikke navnene, det er at helheden kan læses som et officielt site.
+
+Anbefaling, i prioriteret rækkefølge:
+
+1. **Nyt logomærke.** En rød d20 er det skarpeste enkeltproblem. Foreningen hedder Dungeon 64 og spiller fem forskellige systemer, så et mærke der ikke er en D&D-terning, er også mere retvisende.
+2. **Flyt den røde.** Væk fra `#e40712` til noget der er foreningens eget. Ændres ét sted: `--red` i `public/assets/css/site.css`.
+
+Begge dele kan laves uden at røre layoutet.
+
+### 2. Tilmeldingslink mangler
+
+Medlemskaberne betales online med kort eller MobilePay Online, men linket til medlemssystemet er ikke lagt ind. Knapperne på `/indmeldelse/` peger indtil videre på `#betaling`-afsnittet på samme side, hvor der står en mailadresse.
+
+Det er den største enkeltstående konverteringsblokering på siden. Når linket findes, skal det ind i seks knapper: tre i `index.html` og tre i `indmeldelse/index.html`.
+
+### 3. Foreningens egne billeder
+
+De tre baggrunde er public domain-malerier af John Martin og Caspar David Friedrich, valgt som stand-ins. Fotos af medlemmernes egne malede figurer vil være et markant løft, og det er den slags billede der får en forælder til at forstå hvad klubben er. Warhammers eget site bygger på præcis det.
+
+Erstattes i `public/assets/img/`. Filnavnene refereres i `site.css`.
+
+### 4. Mailadressen
+
+`dungeond64@gmail.com` er kopieret ordret fra den tidligere side. Det ekstra `d` bør bekræftes, inden den står seks steder på et officielt site.
+
+### 5. Holdtiderne bør bekræftes
+
+Programtabellen er bygget på foreningens egen offentlige Google-kalender, hvor de faste hold ligger som gentagne begivenheder:
 
 | Dag | Hold | Tid | Kadence |
 |---|---|---|---|
@@ -119,4 +148,36 @@ Programtabellen er bygget på foreningens egen offentlige kalender (`dungeond64@
 | Lørdag | MtG Legacy Draft | 12:00–16:00 | hver 2. uge |
 | Fredag | D64 Fredagsbar | aften | sidste fredag i måneden |
 
-Den nuværende indmeldelsesside på dungeon64.dk siger noget andet: mandag 17:00–18:30 og 19:00–20:30, tirsdag 16:00–17:30 og 18:00–19:30. Mandagens andet hold står i kalenderen som afsluttet i juni 2025 og var markeret "IKKE BESAT". Kalenderen er altså nyere end indmeldelsessiden. Det bør foreningen selv rette op i, uanset hvilket design de lander på.
+Den tidligere indmeldelsesside sagde noget andet: mandag 17:00–18:30 og 19:00–20:30, tirsdag 16:00–17:30 og 18:00–19:30. Mandagens andet hold står i kalenderen som afsluttet i juni 2025 og var markeret "IKKE BESAT", så kalenderen er nyere. Tabellen følger kalenderen, men bestyrelsen bør bekræfte den, før den står som officiel information.
+
+---
+
+## Teknisk
+
+**Tilgængelighed.** Springlink til indhold, synlige fokusmarkeringer, `aria-live` på terningeresultatet, dekorativ SVG skjult for skærmlæsere, programmet som rigtig `<table>` med `<th scope="col">`, og fuld `prefers-reduced-motion`-understøttelse.
+
+**Kontrast.** Brødtekst 8,1:1, guld 6,4–7,5:1, hvid på rød 4,8:1. Paragraftegnene i ordensreglerne ligger på 4,3:1, altså lige under AA-kravet på 4,5:1. De er nummermarkører og ikke løbende tekst, men flyttes den røde farve alligevel (punkt 1 ovenfor), er det oplagt at rette samtidig.
+
+**Ydelse.** Ingen eksterne kald overhovedet, bortset fra Google-kalenderens iframe på `/kalender/`. Skrifttypen er selvhostet. Sider vejer 9–19 KB HTML plus et fælles stylesheet på 25 KB. Billederne (145–270 KB) hentes kun på de sider der bruger dem.
+
+**Browserunderstøttelse.** `aspect-ratio`, `clip-path` og `text-wrap: balance` kræver nyere browsere. Alt degraderer pænt: layoutet holder, ornamenter og balanceret ombrydning falder bare væk.
+
+**SEO.** Hver side har `<title>`, `meta description`, canonical og Open Graph med absolutte URL'er, så link-previews i Messenger og Slack virker. `sitemap.xml` og `robots.txt` peger på produktionsdomænet. Ændres domænet, skal det rettes i begge filer og i de fire `<head>`-blokke:
+
+```bash
+cd public && grep -rl "www.dungeon64.dk" . | xargs sed -i '' 's|https://www.dungeon64.dk|https://NYT-DOMÆNE|g'
+```
+
+---
+
+## Kunst og skrifttype
+
+Baggrundsmalerierne er public domain, hentet fra Wikimedia Commons, og krediteres i footeren.
+
+| Placering | Værk | Kunstner | År |
+|---|---|---|---|
+| Hero | *Manfred and the Alpine Witch* (spejlvendt) | John Martin (d. 1854) | 1837 |
+| Medlemskab | *Pandemonium* | John Martin (d. 1854) | 1841 |
+| Besøg | *Vandreren over tågehavet* | Caspar David Friedrich (d. 1840) | 1818 |
+
+Playfair Display er under SIL Open Font License, som tillader indlejring og selvhosting.
