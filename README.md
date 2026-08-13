@@ -130,47 +130,13 @@ Farverne ligger i `:root` i `public/assets/css/site.css`:
 
 `--accent` findes, fordi `--red` er for mørk til at læses som tekst mod baggrunden. De to jobs var før slået sammen i `--red-hover`, hvilket gav en farve der hverken var god som knapbund eller som tekst.
 
-## Åbne punkter
+## Kendte mangler
 
-### 1. Tilmeldingslink mangler
+**Tilmeldingslink.** Medlemskaberne betales online med kort eller MobilePay Online, men linket til medlemssystemet er ikke lagt ind endnu. Knapperne på `/indmeldelse/` peger indtil videre på `#betaling`-afsnittet på samme side. Når linket findes, skal det ind i seks knapper: tre i `index.html` og tre i `indmeldelse/index.html`.
 
-Medlemskaberne betales online med kort eller MobilePay Online, men linket til medlemssystemet er ikke lagt ind. Knapperne på `/indmeldelse/` peger indtil videre på `#betaling`-afsnittet på samme side, hvor der står en mailadresse.
+**Assets har ingen cache-busting.** `site.css` og `site.js` hedder det samme ved hver udgivelse, og Caddy sætter `Cache-Control: public, max-age=3600`. Efter en rettelse kan besøgende se den gamle stil eller det gamle script i op til en time. Skal en rettelse ud med det samme, tilføj en version i stien, for eksempel `site.css?v=2`, i de fem HTML-filer.
 
-Det er den største enkeltstående konverteringsblokering på siden. Når linket findes, skal det ind i seks knapper: tre i `index.html` og tre i `indmeldelse/index.html`.
-
-### 2. Foreningens egne billeder
-
-De tre baggrunde er public domain-malerier af John Martin og Caspar David Friedrich, valgt som stand-ins. Fotos af medlemmernes egne malede figurer vil være et markant løft, og det er den slags billede der får en forælder til at forstå hvad klubben er. Warhammers eget site bygger på præcis det.
-
-Erstattes i `public/assets/img/`. Filnavnene refereres i `site.css`.
-
-### 3. Mailadressen
-
-`dungeond64@gmail.com` er kopieret ordret fra den tidligere side. Det ekstra `d` bør bekræftes, inden den står seks steder på et officielt site.
-
-### 4. Assets har ingen cache-busting
-
-`site.css` og `site.js` hedder det samme ved hver udgivelse, og Caddy sætter `Cache-Control: public, max-age=3600`. Efter en rettelse kan besøgende derfor se den gamle stil eller det gamle script i op til en time. Det ramte under test.
-
-En time er et bevidst kompromis frem for et års cache, men skal en rettelse ud med det samme, er den enkle løsning at tilføje en version i stien, for eksempel `site.css?v=2`, i de fem HTML-filer.
-
-### 5. Holdtiderne bør bekræftes
-
-Programtabellen er bygget på foreningens egen offentlige Google-kalender, hvor de faste hold ligger som gentagne begivenheder:
-
-| Dag | Hold | Tid | Kadence |
-|---|---|---|---|
-| Søndag | Old World Søndag | 11:00–18:00 | hver 2. uge |
-| Søndag | Åben tabletop-dag | 11:00–16:00 | hver 2. uge |
-| Mandag | D&D hold 1 | 17:00–18:30 | ugentligt |
-| Tirsdag | D&D hold 2 | 16:30–18:00 | ugentligt |
-| Tirsdag | D&D hold 3 | 18:30–20:00 | ugentligt |
-| Onsdag | D&D 2770 Drengene | 18:00–22:00 | hver 2. uge |
-| Torsdag | D&D hold 4 | 17:30–21:00 | hver 2. uge |
-| Lørdag | MtG Legacy Draft | 12:00–16:00 | hver 2. uge |
-| Fredag | D64 Fredagsbar | aften | sidste fredag i måneden |
-
-Den tidligere indmeldelsesside sagde noget andet: mandag 17:00–18:30 og 19:00–20:30, tirsdag 16:00–17:30 og 18:00–19:30. Mandagens andet hold står i kalenderen som afsluttet i juni 2025 og var markeret "IKKE BESAT", så kalenderen er nyere. Tabellen følger kalenderen, men bestyrelsen bør bekræfte den, før den står som officiel information.
+**Billederne er pladsholdere.** De tre baggrunde er public domain-malerier. Foreningens egne fotos af malede figurer vil være et markant løft. Erstattes i `public/assets/img/`, filnavnene refereres i `site.css`.
 
 ---
 
