@@ -8,6 +8,14 @@
    ============================================================ */
 
 @font-face {
+  font-family: 'Alfa Slab One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/alfa-slab-one.woff2) format('woff2');
+}
+
+@font-face {
   font-family: 'Playfair Display';
   font-style: normal;
   font-weight: 400 900;
@@ -161,13 +169,18 @@ h3 { font-size: 1.3rem; }
   height: 48px;
   filter: invert(1);
 }
-/* Versaler og guld frem for blandet sats og lyserød: ordbilledet skal
-   læses som ét mærke sammen med tegningen, ikke som løbende tekst. */
+/* Ordbilledet er sat i Alfa Slab One, ikke i sidens overskriftsserif.
+   Logomærket er en stregtegning med ensartet, tung streg og ingen
+   tynd-tyk-kontrast. Playfair er en didone med hårfine tværstreger, så
+   de to lignede ikke hinanden, og teksten læstes som en billedtekst ved
+   siden af tegningen frem for som en del af mærket. Alfa Slab har samme
+   blækvægt som stregen, og dens stumpe slabserifer svarer til
+   tegningens afskårne linjeender. Overskrifter er stadig Playfair. */
 .brand-name {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 1.22rem;
-  letter-spacing: .05em;
+  font-family: 'Alfa Slab One', Rockwell, Georgia, serif;
+  font-weight: 400;
+  font-size: 1.16rem;
+  letter-spacing: .015em;
   text-transform: uppercase;
   line-height: 1;
 }
