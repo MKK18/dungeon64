@@ -245,7 +245,8 @@ h3 { font-size: 1.3rem; }
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: url(../img/hero-manfred.jpg) 68% bottom / cover no-repeat;
+  background: url(../img/hero-1400.jpg) 62% bottom / cover no-repeat;
+  background-image: image-set(url(../img/hero-1400.jpg) 1x, url(../img/hero-2200.jpg) 2x);
 }
 .hero::after {
   content: '';
@@ -415,7 +416,8 @@ h3 { font-size: 1.3rem; }
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: url(../img/pandemonium.jpg) center 34% / cover no-repeat;
+  background: url(../img/pandemonium-1400.jpg) center 34% / cover no-repeat;
+  background-image: image-set(url(../img/pandemonium-1400.jpg) 1x, url(../img/pandemonium-2200.jpg) 2x);
 }
 .section-art::after {
   content: '';
@@ -691,7 +693,8 @@ h3 { font-size: 1.3rem; }
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: url(../img/wanderer.jpg) center 20% / cover no-repeat;
+  background: url(../img/wanderer-1000.jpg) center 20% / cover no-repeat;
+  background-image: image-set(url(../img/wanderer-1000.jpg) 1x, url(../img/wanderer-1600.jpg) 2x);
 }
 .visit::after {
   content: '';
@@ -732,8 +735,8 @@ footer {
 }
 .foot-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px 32px;
   padding-bottom: 34px;
   border-bottom: 1px solid var(--line);
   margin-bottom: 26px;
@@ -886,3 +889,22 @@ footer .fineprint { font-size: .8rem; font-style: italic; }
 .visit-plain .lede { margin-left: 0; margin-right: 0; }
 .visit-plain .taper { margin-left: 0; }
 .visit-plain .visit-address { margin: 28px 0; }
+
+
+/* ---------- billeder i flere opløsninger ----------
+   Malerierne er hentet i højeste tilgængelige opløsning fra
+   Wikimedia Commons. Små skærme henter den lille fil, brede og
+   skarpe skærme henter en større. Kvaliteten er skruet ned i de
+   store varianter, fordi de alligevel ligger bag mørke overlejringer. */
+
+@media (min-width: 1100px) {
+  .hero::before {
+    background-image: image-set(url(../img/hero-2200.jpg) 1x, url(../img/hero-3200.jpg) 2x);
+  }
+  .section-art::before {
+    background-image: image-set(url(../img/pandemonium-2200.jpg) 1x, url(../img/pandemonium-3000.jpg) 2x);
+  }
+  .visit::before {
+    background-image: image-set(url(../img/wanderer-1600.jpg) 1x, url(../img/wanderer-2400.jpg) 2x);
+  }
+}
