@@ -34,7 +34,7 @@
   --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
   --w: 1100px;
-  --bar: 69px;
+  --bar: 75px;
 
 }
 
@@ -152,18 +152,15 @@ h3 { font-size: 1.3rem; }
 }
 .brand svg { display: block; }
 
-/* Logomærket: en hvælvet dør med husnummeret i åbningen.
-   Systemneutralt, i modsætning til en d20, som både binder
-   klubben til ét af de fem spil vi spiller og ligger for tæt
-   på D&D Beyonds eget mærke. */
-.mark-arch {
-  fill: rgba(176, 34, 42, .14);
-  stroke: var(--red);
-  stroke-width: 15;
-  stroke-linejoin: round;
+/* Klubbens eget logo. Sort stregtegning med gennemsigtig bund, så
+   den vendes om for at kunne ses på den mørke baggrund. Alfakanalen
+   overlever inverteringen, så der er ingen kasse omkring. */
+.mark {
+  display: block;
+  width: 48px;
+  height: 48px;
+  filter: invert(1);
 }
-.mark-sill { fill: var(--red); }
-.mark-num { fill: var(--ink); }
 .brand-name {
   font-family: var(--font-display);
   font-weight: 800;
@@ -418,7 +415,7 @@ h3 { font-size: 1.3rem; }
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: url(../img/pandemonium-1400.jpg) center 34% / cover no-repeat;
+  background: url(../img/pandemonium-1400.jpg) center bottom / cover no-repeat;
   background-image: image-set(url(../img/pandemonium-1400.jpg) 1x, url(../img/pandemonium-2200.jpg) 2x);
 }
 .section-art::after {
@@ -695,7 +692,7 @@ h3 { font-size: 1.3rem; }
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: url(../img/wanderer-1000.jpg) center 20% / cover no-repeat;
+  background: url(../img/wanderer-1000.jpg) center 42% / cover no-repeat;
   background-image: image-set(url(../img/wanderer-1000.jpg) 1x, url(../img/wanderer-1600.jpg) 2x);
 }
 .visit::after {
