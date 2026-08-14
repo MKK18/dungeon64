@@ -245,8 +245,8 @@ h3 { font-size: 1.3rem; }
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: url(../img/hero-1400.jpg) 62% bottom / cover no-repeat;
-  background-image: image-set(url(../img/hero-1400.jpg) 1x, url(../img/hero-2200.jpg) 2x);
+  background: url(../img/hero-1131.jpg) 68% bottom / cover no-repeat;
+  background-image: image-set(url(../img/hero-1131.jpg) 1x, url(../img/hero-2262.jpg) 2x);
 }
 .hero::after {
   content: '';
@@ -898,9 +898,6 @@ footer .fineprint { font-size: .8rem; font-style: italic; }
    store varianter, fordi de alligevel ligger bag mørke overlejringer. */
 
 @media (min-width: 1100px) {
-  .hero::before {
-    background-image: image-set(url(../img/hero-2200.jpg) 1x, url(../img/hero-3200.jpg) 2x);
-  }
   .section-art::before {
     background-image: image-set(url(../img/pandemonium-2200.jpg) 1x, url(../img/pandemonium-3000.jpg) 2x);
   }
