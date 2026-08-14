@@ -866,3 +866,23 @@ footer .fineprint { font-size: .8rem; font-style: italic; }
   .banner li { font-size: .68rem; letter-spacing: .08em; }
   .banner .fleuron { padding: 0 .45em; }
 }
+
+/* ---------- værdier ----------
+   Almindelig liste, ikke kort. En forening lægger ikke sit
+   værdigrundlag frem som en feature-grid. */
+.values {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 34px 44px;
+}
+.values h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.values p { margin: 0; color: var(--muted); font-size: .96rem; }
+
+/* ---------- sådan finder du os ----------
+   Praktisk information frem for et afsluttende CTA-bånd.
+   Venstrestillet, fordi centreret tekst over et billede med
+   knapper under er præcis den form en landingsside slutter på. */
+.visit-plain { text-align: left; padding: 96px 0; }
+.visit-plain .lede { margin-left: 0; margin-right: 0; }
+.visit-plain .taper { margin-left: 0; }
+.visit-plain .visit-address { margin: 28px 0; }
