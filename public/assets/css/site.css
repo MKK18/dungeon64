@@ -519,34 +519,6 @@ h3 { font-size: 1.3rem; }
   position: relative;
   box-shadow: 0 18px 44px rgba(0, 0, 0, .45);
 }
-.class-card.featured {
-  background: linear-gradient(160deg, #8d7439 0%, #b3985a 55%, #927a3e 100%);
-  border-color: var(--gold);
-}
-/* Mørk tekst på guld frem for hvid. Hvid gav 2,78:1 mod guldets
-   midtertone, altså under 3:1-grænsen for stor tekst. */
-.class-card.featured .class-level { color: rgba(43, 33, 9, .82); }
-.class-card.featured .class-body { color: #3a2d10; }
-.class-card.featured .class-body strong { color: #2b2109; }
-.class-card.featured .class-price { color: #2b2109; }
-.class-card.featured .class-price small { color: rgba(43, 33, 9, .78); }
-.class-card.featured .class-flag { background: #2b2109; color: #f3e6c4; }
-.class-card.featured .stat b { color: #2b2109; }
-.class-card.featured .stat span { color: #3a2d10; }
-.class-card.featured .taper { background: #2b2109; }
-.class-flag {
-  position: absolute;
-  top: -12px;
-  left: 24px;
-  background: var(--red);
-  color: #fff;
-  font-weight: 700;
-  font-size: .7rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  padding: 5px 11px;
-  border-radius: 3px;
-}
 .class-level {
   font-weight: 700;
   font-size: .74rem;
