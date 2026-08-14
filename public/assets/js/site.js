@@ -39,7 +39,7 @@
   var rolling = false;
 
   /* Et resultat pr. øje. Med fire tekster gav 16 ud af 20 slag
-     det samme, og så er der ingen grund til at kaste to gange. */
+     det samme og så er der ingen grund til at kaste to gange. */
   var ROLLS = [
     null,
     'Din mini vælter på vej ned fra hylden. Den skal males om.',
@@ -56,7 +56,7 @@
     'Initiativet er dit. Se ugens program.',
     'Din linje holder en runde mere. Det er alt hvad der skulle til.',
     'Du overtaler din dungeon master. Denne ene gang.',
-    'Du rammer, og modstanderen læser sit statblock igennem igen.',
+    'Du rammer og modstanderen læser sit statblock igennem igen.',
     'Din highlight sidder præcis hvor den skal. Ingen ved hvordan.',
     'Du vinder draften. Husk at være flink bagefter.',
     'Hele bordet kigger med. Du nyder det lidt for meget.',
