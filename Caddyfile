@@ -39,9 +39,21 @@
 		X-Frame-Options "SAMEORIGIN"
 	}
 
-	# hashfrie assets: kort cache, så opdateringer slår igennem
-	@assets path /assets/*
-	header @assets Cache-Control "public, max-age=3600"
+	# Stylesheet og script hentes med ?v=<hash> stemplet ind under
+	# docker build, så de må caches for evigt. Et nyt indhold giver en
+	# ny URL, og browseren henter den af sig selv.
+	@versioneret path /assets/css/* /assets/js/*
+	header @versioneret Cache-Control "public, max-age=31536000, immutable"
+
+	# Billeder og skrifttyper har versionen i filnavnet i forvejen
+	# (hero-1131.jpg og så videre), men logoet har et fast navn, så her
+	# holder vi en moderat cache. css og js undtages, ellers ville denne
+	# regel overskrive den lange cache ovenfor.
+	@assets {
+		path /assets/*
+		not path /assets/css/* /assets/js/*
+	}
+	header @assets Cache-Control "public, max-age=86400"
 
 	@html path *.html /
 	header @html Cache-Control "public, max-age=0, must-revalidate"
