@@ -181,6 +181,7 @@ h3 { font-size: 1.3rem; }
   text-transform: uppercase;
   text-decoration: none;
   color: var(--muted);
+  white-space: nowrap;
 }
 .topnav a:hover { color: var(--ink); }
 .topnav a[aria-current="page"] { color: var(--ink); }
@@ -216,6 +217,7 @@ h3 { font-size: 1.3rem; }
   color: var(--ink);
   background: transparent;
   cursor: pointer;
+  white-space: nowrap;
   transition: transform .12s ease, background .12s ease, color .12s ease, border-color .12s ease;
 }
 .btn:hover {
@@ -766,14 +768,10 @@ footer .fineprint { font-size: .8rem; font-style: italic; }
   .docs-card { position: static; }
 }
 
-@media (max-width: 900px) {
-  .hero-inner { padding: 108px 24px 60px; gap: 40px; }
-  .classes { grid-template-columns: 1fr; }
-  .section, .section-art { padding: 64px 0; }
-  .page-head { padding: 52px 0 44px; }
-  .visit { padding: 88px 0; }
-  .foot-grid { grid-template-columns: 1fr; gap: 28px; }
-
+/* Navigationen loeber toer for plads foer layoutet goer. Med fem punkter
+   plus knappen fylder menuen 772px, og ved 940px er der kun 767px.
+   Burgeren skal derfor overtage tidligere end resten af mobillayoutet. */
+@media (max-width: 1000px) {
   /* mobilmenu erstatter de skjulte links */
   .nav-toggle { display: block; }
   .topbar-inner { gap: 14px; }
@@ -797,6 +795,16 @@ footer .fineprint { font-size: .8rem; font-style: italic; }
     font-size: .88rem;
   }
   .topnav .btn { margin-top: 16px; text-align: center; }
+}
+
+@media (max-width: 900px) {
+  .hero-inner { padding: 108px 24px 60px; gap: 40px; }
+  .classes { grid-template-columns: 1fr; }
+  .section, .section-art { padding: 64px 0; }
+  .page-head { padding: 52px 0 44px; }
+  .visit { padding: 88px 0; }
+  .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+
 
   /* tabel bliver til kort */
   .quest-board, .quest-board tbody, .quest-board tr, .quest-board td { display: block; width: 100%; }
