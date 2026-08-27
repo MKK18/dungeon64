@@ -539,7 +539,7 @@ h3 { font-size: 1.3rem; }
   color: var(--muted);
   margin: 0 0 10px;
 }
-.class-card h3 { font-size: 1.65rem; font-weight: 900; }
+.class-card h2 { font-size: 1.65rem; font-weight: 900; }
 .class-card .taper { margin-top: 12px; width: 100%; }
 .class-price {
   font-family: var(--font-display);
@@ -751,7 +751,7 @@ footer {
   border-bottom: 1px solid var(--line);
   margin-bottom: 26px;
 }
-.foot-grid h4 {
+.foot-grid h3 {
   font-family: var(--font-body);
   font-weight: 700;
   font-size: .78rem;
