@@ -37,6 +37,7 @@
 :root {
   --dark:   #16120E;
   --wood:   #241C15;
+  --wood-2: #2F2419;
   --paper:  #DED3B8;
   --paper-2:#CFC2A2;
   --paper-3:#C4B694;
@@ -71,7 +72,7 @@
 
   --carve: 'Cinzel', Georgia, serif;
   --body:  'Vollkorn', Georgia, serif;
-  --w: 1120px;
+  --w: 1180px;
 }
 
 * { box-sizing: border-box; }
@@ -80,7 +81,7 @@ html {
   color-scheme: dark;
   caret-color: var(--ember);
   accent-color: var(--ember);
-  scrollbar-color: var(--wood) var(--dark);
+  scrollbar-color: var(--wood-2) var(--dark);
   scrollbar-width: thin;
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
@@ -169,14 +170,14 @@ body {
     radial-gradient(ellipse 5% 4% at 50% 2.5%, rgb(var(--fox-a) / .32) 0%, rgb(var(--fox-a) / .1) 55%, transparent 100%),
     linear-gradient(160deg, var(--paper) 0%, var(--paper-2) 78%, var(--paper-3) 100%);
   box-shadow: 0 16px 30px var(--shadow), 0 3px 8px var(--shadow-2);
-  clip-path: polygon(0% 1.5%, 6% 1.1%, 14% 1.2%, 23% 0.6%, 32% 1.2%, 43% 1.5%, 54% 1.6%, 65% 0.6%, 76% 0.7%, 87% 0.9%, 95% 1.3%, 100% 1.3%, 99.5% 12%, 99.3% 26%, 99.3% 41%, 99.0% 58%, 99.4% 73%, 99.8% 88%, 99.4% 99%, 92% 99.4%, 83% 99.7%, 71% 99.4%, 60% 98.6%, 48% 98.4%, 37% 98.5%, 26% 98.6%, 15% 99.2%, 6% 99.3%, 1.1% 86%, 0.2% 71%, 0.3% 55%, 0.6% 39%, 0.8% 24%, 0.4% 12%);
+  clip-path: polygon(0.5% 1.3%, 8% 1.4%, 17% 1.6%, 27% 0.5%, 37% 1.2%, 48% 0.4%, 58% 0.4%, 68% 0.3%, 78% 1.7%, 87% 1.1%, 94% 1.6%, 99.8% 0.7%, 98.9% 11%, 99.2% 23%, 99.8% 36%, 99.6% 49%, 99.4% 62%, 99.1% 75%, 98.8% 87%, 99.9% 99.3%, 93% 98.6%, 84% 99.4%, 74% 98.9%, 63% 99.3%, 52% 99.1%, 41% 99.2%, 30% 99.2%, 20% 99.1%, 11% 98.7%, 0.0% 98.9%, 0.1% 86%, 0.8% 73%, 1.1% 60%, 0.4% 47%, 0.2% 34%, 1.0% 21%, 0.2% 10%);
 }
 /* Fire riv og fire sæt skjolder. Seksten ens sedler læses som et
    mønster, altså som noget en maskine har lavet, hvilket er stik imod
    hele pointen med en opslagstavle. */
-.tear-2 { clip-path: polygon(0% 1.2%, 6% 0.8%, 14% 1.1%, 23% 0.3%, 32% 1.5%, 43% 2.1%, 54% 2.1%, 65% 0.7%, 76% 1.5%, 87% 2.0%, 95% 0.3%, 100% 0.6%, 98.9% 12%, 98.9% 26%, 99.7% 41%, 99.5% 58%, 99.1% 73%, 99.4% 88%, 99.3% 99%, 92% 99.4%, 83% 98.2%, 71% 98.7%, 60% 98.2%, 48% 98.6%, 37% 99.7%, 26% 98.4%, 15% 99.1%, 6% 99.5%, 1.0% 86%, 0.5% 71%, 0.0% 55%, 0.2% 39%, 0.5% 24%, 0.7% 12%); }
-.tear-3 { clip-path: polygon(0% 0.5%, 6% 1.9%, 14% 0.7%, 23% 0.8%, 32% 0.6%, 43% 0.5%, 54% 0.5%, 65% 1.2%, 76% 1.1%, 87% 0.6%, 95% 1.2%, 100% 2.2%, 100.0% 12%, 99.1% 26%, 99.5% 41%, 99.7% 58%, 99.1% 73%, 99.1% 88%, 99.8% 99%, 92% 99.4%, 83% 99.4%, 71% 98.5%, 60% 98.9%, 48% 98.5%, 37% 99.1%, 26% 98.4%, 15% 98.7%, 6% 98.8%, 0.7% 86%, 1.1% 71%, 0.4% 55%, 0.5% 39%, 0.8% 24%, 0.9% 12%); }
-.tear-4 { clip-path: polygon(0% 0.8%, 6% 2.0%, 14% 2.1%, 23% 1.8%, 32% 2.0%, 43% 1.2%, 54% 0.2%, 65% 0.4%, 76% 0.3%, 87% 1.0%, 95% 2.0%, 100% 1.0%, 99.3% 12%, 99.1% 26%, 98.9% 41%, 99.7% 58%, 99.5% 73%, 99.9% 88%, 99.6% 99%, 92% 98.5%, 83% 99.1%, 71% 99.1%, 60% 99.2%, 48% 99.0%, 37% 98.6%, 26% 98.8%, 15% 98.2%, 6% 99.0%, 0.8% 86%, 1.0% 71%, 0.9% 55%, 0.1% 39%, 0.9% 24%, 0.1% 12%); }
+.tear-2 { clip-path: polygon(0.5% 1.4%, 8% 1.5%, 17% 0.3%, 27% 1.2%, 37% 0.7%, 48% 1.1%, 58% 0.9%, 68% 1.3%, 78% 1.0%, 87% 1.0%, 94% 1.4%, 99.3% 0.7%, 98.9% 11%, 99.7% 23%, 99.7% 36%, 99.9% 49%, 99.4% 62%, 99.5% 75%, 99.0% 87%, 100.0% 99.4%, 93% 99.4%, 84% 99.4%, 74% 99.1%, 63% 98.5%, 52% 99.0%, 41% 99.2%, 30% 99.5%, 20% 99.3%, 11% 99.5%, 0.6% 99.3%, 0.8% 86%, 0.6% 73%, 0.2% 60%, 0.7% 47%, 0.4% 34%, 0.5% 21%, 0.1% 10%); }
+.tear-3 { clip-path: polygon(0.5% 0.9%, 8% 1.5%, 17% 1.4%, 27% 1.1%, 37% 1.2%, 48% 0.5%, 58% 0.9%, 68% 1.4%, 78% 1.4%, 87% 0.5%, 94% 0.5%, 99.8% 1.2%, 99.7% 11%, 99.6% 23%, 99.6% 36%, 99.1% 49%, 99.5% 62%, 99.8% 75%, 99.5% 87%, 99.5% 99.4%, 93% 99.5%, 84% 98.8%, 74% 99.6%, 63% 99.0%, 52% 99.5%, 41% 98.9%, 30% 98.5%, 20% 99.1%, 11% 98.5%, 0.4% 98.7%, 1.0% 86%, 0.3% 73%, 0.1% 60%, 0.7% 47%, 0.9% 34%, 0.9% 21%, 1.0% 10%); }
+.tear-4 { clip-path: polygon(0.4% 1.1%, 8% 0.7%, 17% 0.6%, 27% 1.1%, 37% 1.1%, 48% 0.7%, 58% 1.2%, 68% 0.7%, 78% 1.4%, 87% 0.8%, 94% 1.7%, 99.9% 0.8%, 99.2% 11%, 98.9% 23%, 99.4% 36%, 98.9% 49%, 98.9% 62%, 99.3% 75%, 99.2% 87%, 99.3% 99.0%, 93% 98.8%, 84% 99.3%, 74% 98.5%, 63% 98.5%, 52% 98.4%, 41% 98.6%, 30% 98.7%, 20% 98.4%, 11% 98.6%, 0.5% 99.2%, 1.1% 86%, 1.0% 73%, 0.8% 60%, 0.4% 47%, 0.6% 34%, 0.4% 21%, 0.0% 10%); }
 
 .note {
   --foxing:
@@ -313,7 +314,7 @@ body {
 .slab a { color: var(--text); text-underline-offset: 3px; }
 .slab a:hover { color: var(--ember); }
 
-.rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hair); }
+.rows { list-style: none; margin: 0; padding: 0; max-width: 74ch; border-top: 1px solid var(--hair); }
 .rows > li { padding: 15px 0; border-bottom: 1px solid var(--hair); color: var(--text-dim); font-size: var(--fs-base); line-height: 1.6; }
 .rows b, .rows strong { color: var(--text); font-weight: 700; }
 
@@ -351,7 +352,7 @@ body {
 .page-note h1 { margin: 0; font-family: var(--carve); font-size: clamp(1.5rem, 3.4vw, 2.2rem); font-weight: 700; letter-spacing: .035em; text-transform: uppercase; line-height: 1.18; color: var(--text); }
 .page-note .lede { margin: 16px 0 0; max-width: 60ch; font-size: var(--fs-lg); line-height: 1.55; color: var(--text); }
 
-.roster { list-style: none; margin: 0; padding: 0; }
+.roster { list-style: none; margin: 0; padding: 0; max-width: 82ch; }
 .roster li { display: grid; grid-template-columns: minmax(6rem, 9rem) minmax(0, 1fr); gap: 3px 26px; padding: 14px 0; border-bottom: 1px solid var(--hair); }
 .roster li:last-child { border-bottom: 0; }
 .roster-name { font-family: var(--carve); font-size: var(--fs-base); font-weight: 700; letter-spacing: .03em; color: var(--text); }
