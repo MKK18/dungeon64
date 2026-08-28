@@ -1,0 +1,411 @@
+/* ============================================================
+   DUNGEON 64 · "Opslagstavlen"
+   Verden: en opslagstavle i et mørkt rum. Martins Pandemonium og
+   Friedrichs vandrer ligger bagved som stemning, ikke som motiv:
+   indholdet er klubbens, maleriet giver registret.
+
+   To love styrer arket.
+
+   1. PAPIR er det der bliver hængt op og skiftet ud: bekendtgørelsen,
+      ugens sedler, den levende kalender. Alt permanent står direkte på
+      brættet. Da papiret lå under hver eneste sektion, holdt det op med
+      at betyde noget, og en opslagstavle hvor alt er opslag er bare en
+      flade med kort på.
+
+   2. FLADEN EJER FARVEN, komponenten arver den. Hver komponent bar før
+      en absolut farve, hvilket i praksis var en skjult antagelse om
+      hvilken flade den lå på. Da sektioner flyttede ned på brættet,
+      fulgte blækket med og blev usynligt, og genbrug spredte fejlen til
+      alle rækker på én gang. Nu skriver fladen --text og --text-dim.
+
+   Rødt i to dybder, fordi én rød ikke kan bære begge flader:
+   dybrød giver 5,12 på papir men 1,81 på brættet, gløderød 5,65 på
+   brættet og 5,09 på træværket.
+   ============================================================ */
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal; font-weight: 400 900; font-display: swap;
+  src: url(../fonts/cinzel.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: normal; font-weight: 400 900; font-display: swap;
+  src: url(../fonts/vollkorn.woff2) format('woff2');
+}
+
+:root {
+  --dark:   #16120E;
+  --wood:   #241C15;
+  --paper:  #DED3B8;
+  --paper-2:#CFC2A2;
+  --paper-3:#C4B694;
+  --ink:    #1B1610;
+  --ink-2:  #4A3F30;
+  --seal:   #7C1D13;
+  --ember:  #E2685C;
+
+  --board-text: #C0B49C;
+  --board-dim:  #A79C88;
+  --wax-text:   #E4C9BC;
+  --seam:       #1A1109;
+  --seam-2:     #3B2E21;
+  --hair:       rgba(200, 80, 66, .3);
+  --hair-ink:   rgba(27, 22, 16, .22);
+  --edge:       rgba(222, 211, 184, .55);
+  --shadow:     rgba(26, 12, 0, .62);
+  --shadow-2:   rgba(26, 12, 0, .45);
+  --veil-1:     rgba(22, 18, 14, .5);
+  --veil-2:     rgba(22, 18, 14, .72);
+  --veil-3:     rgba(22, 18, 14, .78);
+  --fox-a:      126 84 38;
+  --fox-b:      104 68 28;
+
+  /* Fladens to tekstroller. Brættet er standard; papir skriver dem om. */
+  --text:       var(--paper);
+  --text-dim:   var(--board-text);
+
+  --fs-2xs: .75rem;  --fs-xs: .8125rem; --fs-sm: .875rem;
+  --fs-md: .9375rem; --fs-base: 1rem;   --fs-lg: 1.125rem;
+  --fs-xl: 1.3125rem;--fs-2xl: 1.5rem;  --fs-3xl: 2rem;
+
+  --carve: 'Cinzel', Georgia, serif;
+  --body:  'Vollkorn', Georgia, serif;
+  --w: 1120px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  color-scheme: dark;
+  caret-color: var(--ember);
+  accent-color: var(--ember);
+  scrollbar-color: var(--wood) var(--dark);
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--dark);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--seal); color: var(--paper); }
+:focus-visible { outline: 3px solid var(--ember); outline-offset: 3px; }
+/* På papir skifter ringen til blæk. Gløderød giver kun 1,9 mod papiret. */
+.note :focus-visible, .note:focus-visible { outline-color: var(--seal); }
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 99;
+  background: var(--ember); color: var(--dark); padding: 12px 18px; text-decoration: none;
+}
+.skip-link:focus { left: 0; }
+
+.wrap { max-width: var(--w); margin: 0 auto; padding: 0 24px; }
+
+/* ---------- bjælken ---------- */
+.beam { position: sticky; top: 0; z-index: 30; background: var(--wood); border-bottom: 2px solid var(--seam); }
+.beam-inner { max-width: var(--w); margin: 0 auto; padding: 0 24px; min-height: 62px; display: flex; align-items: center; gap: 10px 26px; flex-wrap: wrap; }
+.beam-mark {
+  display: block; width: 128px; aspect-ratio: 780 / 216; flex-shrink: 0;
+  background: var(--paper);
+  -webkit-mask: url(../img/logotype-d64.svg) no-repeat left center / contain;
+  mask: url(../img/logotype-d64.svg) no-repeat left center / contain;
+}
+.beam ul { list-style: none; margin: 0 0 0 auto; padding: 0; display: flex; flex-wrap: wrap; gap: 0 22px; }
+.beam a {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-family: var(--carve); font-size: var(--fs-xs); font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--paper); text-decoration: none; border-bottom: 2px solid transparent;
+}
+.beam a:hover { color: var(--ember); }
+.beam a[aria-current="page"] { color: var(--ember); border-bottom-color: var(--ember); }
+
+/* ---------- rummet: maleriet bagved ---------- */
+.room { position: relative; isolation: isolate; }
+.room::before {
+  content: ''; position: absolute; inset: 0; z-index: -2;
+  background: url(../img/pandemonium-1400.jpg) center 34% / cover no-repeat;
+  background-image: image-set(
+    url(../img/pandemonium-1400.webp) type("image/webp") 1x,
+    url(../img/pandemonium-2200.webp) type("image/webp") 2x,
+    url(../img/pandemonium-1400.jpg) type("image/jpeg") 1x,
+    url(../img/pandemonium-2200.jpg) type("image/jpeg") 2x);
+}
+.room::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background-image: linear-gradient(180deg, var(--veil-2) 0%, var(--veil-1) 34%, var(--veil-3) 78%, var(--dark) 100%);
+}
+.room-2::before {
+  background-image: image-set(
+    url(../img/wanderer-1000.webp) type("image/webp") 1x,
+    url(../img/wanderer-1600.webp) type("image/webp") 2x,
+    url(../img/wanderer-1000.jpg) type("image/jpeg") 1x,
+    url(../img/wanderer-1600.jpg) type("image/jpeg") 2x);
+  background-position: center 38%;
+}
+.room-2::after { background-image: linear-gradient(180deg, var(--dark) 0%, var(--veil-1) 22%, var(--veil-2) 76%, var(--dark) 100%); }
+
+/* ---------- sedlen ---------- */
+.note {
+  --text: var(--ink);
+  --text-dim: var(--ink-2);
+  position: relative;
+  color: var(--text);
+  /* Bundfarve UNDER gradienterne. Uden den males papiret kun af tyve
+     gradientlag, og hvor de ikke males bliver sedlen gennemsigtig og
+     det mørke blæk lander på det mørke bræt. */
+  background-color: var(--paper-2);
+  background-image:
+    var(--foxing, none),
+    radial-gradient(ellipse 5% 4% at 50% 2.5%, rgb(var(--fox-a) / .32) 0%, rgb(var(--fox-a) / .1) 55%, transparent 100%),
+    linear-gradient(160deg, var(--paper) 0%, var(--paper-2) 78%, var(--paper-3) 100%);
+  box-shadow: 0 16px 30px var(--shadow), 0 3px 8px var(--shadow-2);
+  clip-path: polygon(0% 1.5%, 6% 1.1%, 14% 1.2%, 23% 0.6%, 32% 1.2%, 43% 1.5%, 54% 1.6%, 65% 0.6%, 76% 0.7%, 87% 0.9%, 95% 1.3%, 100% 1.3%, 99.5% 12%, 99.3% 26%, 99.3% 41%, 99.0% 58%, 99.4% 73%, 99.8% 88%, 99.4% 99%, 92% 99.4%, 83% 99.7%, 71% 99.4%, 60% 98.6%, 48% 98.4%, 37% 98.5%, 26% 98.6%, 15% 99.2%, 6% 99.3%, 1.1% 86%, 0.2% 71%, 0.3% 55%, 0.6% 39%, 0.8% 24%, 0.4% 12%);
+}
+/* Fire riv og fire sæt skjolder. Seksten ens sedler læses som et
+   mønster, altså som noget en maskine har lavet, hvilket er stik imod
+   hele pointen med en opslagstavle. */
+.tear-2 { clip-path: polygon(0% 1.2%, 6% 0.8%, 14% 1.1%, 23% 0.3%, 32% 1.5%, 43% 2.1%, 54% 2.1%, 65% 0.7%, 76% 1.5%, 87% 2.0%, 95% 0.3%, 100% 0.6%, 98.9% 12%, 98.9% 26%, 99.7% 41%, 99.5% 58%, 99.1% 73%, 99.4% 88%, 99.3% 99%, 92% 99.4%, 83% 98.2%, 71% 98.7%, 60% 98.2%, 48% 98.6%, 37% 99.7%, 26% 98.4%, 15% 99.1%, 6% 99.5%, 1.0% 86%, 0.5% 71%, 0.0% 55%, 0.2% 39%, 0.5% 24%, 0.7% 12%); }
+.tear-3 { clip-path: polygon(0% 0.5%, 6% 1.9%, 14% 0.7%, 23% 0.8%, 32% 0.6%, 43% 0.5%, 54% 0.5%, 65% 1.2%, 76% 1.1%, 87% 0.6%, 95% 1.2%, 100% 2.2%, 100.0% 12%, 99.1% 26%, 99.5% 41%, 99.7% 58%, 99.1% 73%, 99.1% 88%, 99.8% 99%, 92% 99.4%, 83% 99.4%, 71% 98.5%, 60% 98.9%, 48% 98.5%, 37% 99.1%, 26% 98.4%, 15% 98.7%, 6% 98.8%, 0.7% 86%, 1.1% 71%, 0.4% 55%, 0.5% 39%, 0.8% 24%, 0.9% 12%); }
+.tear-4 { clip-path: polygon(0% 0.8%, 6% 2.0%, 14% 2.1%, 23% 1.8%, 32% 2.0%, 43% 1.2%, 54% 0.2%, 65% 0.4%, 76% 0.3%, 87% 1.0%, 95% 2.0%, 100% 1.0%, 99.3% 12%, 99.1% 26%, 98.9% 41%, 99.7% 58%, 99.5% 73%, 99.9% 88%, 99.6% 99%, 92% 98.5%, 83% 99.1%, 71% 99.1%, 60% 99.2%, 48% 99.0%, 37% 98.6%, 26% 98.8%, 15% 98.2%, 6% 99.0%, 0.8% 86%, 1.0% 71%, 0.9% 55%, 0.1% 39%, 0.9% 24%, 0.1% 12%); }
+
+.note {
+  --foxing:
+    radial-gradient(circle at 14% 20%, rgb(var(--fox-a) / .15) 0 3%, transparent 9%),
+    radial-gradient(circle at 82% 74%, rgb(var(--fox-a) / .11) 0 4%, transparent 12%),
+    radial-gradient(circle at 38% 92%, rgb(var(--fox-b) / .1) 0 2.6%, transparent 8%);
+}
+.tear-2 {
+  --foxing:
+    radial-gradient(circle at 88% 16%, rgb(var(--fox-a) / .14) 0 3.4%, transparent 10%),
+    radial-gradient(circle at 20% 66%, rgb(var(--fox-a) / .1) 0 4.4%, transparent 13%),
+    radial-gradient(circle at 66% 95%, rgb(var(--fox-b) / .11) 0 2.2%, transparent 7%);
+}
+.tear-3 {
+  --foxing:
+    radial-gradient(circle at 8% 48%, rgb(var(--fox-a) / .13) 0 3.8%, transparent 11%),
+    radial-gradient(circle at 70% 28%, rgb(var(--fox-a) / .1) 0 3%, transparent 9%),
+    radial-gradient(circle at 44% 86%, rgb(var(--fox-b) / .12) 0 3.2%, transparent 10%);
+}
+.tear-4 {
+  --foxing:
+    radial-gradient(circle at 92% 52%, rgb(var(--fox-a) / .12) 0 4.2%, transparent 12%),
+    radial-gradient(circle at 30% 12%, rgb(var(--fox-a) / .13) 0 2.8%, transparent 8%),
+    radial-gradient(circle at 12% 82%, rgb(var(--fox-b) / .1) 0 3.6%, transparent 11%);
+}
+
+/* Sømhovedet er tegnet, ikke lagt sammen af farveovergange: en
+   radial-gradient bliver til en kugle, og en kugle læses som en klat.
+   Et smedet hoved har hårde facetter, et koldt glimt og egen skygge. */
+.note::before {
+  content: ''; position: absolute; top: 9px; left: 50%;
+  width: 16px; height: 16px;
+  transform: translateX(-50%) rotate(-7deg);
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'> <ellipse cx='17.4' cy='21' rx='11.8' ry='8.6' fill='%231a0f07' opacity='.5'/> <path d='M17 5 L22.4 6.2 L26.4 9.8 L27.4 15.2 L25.4 20.2 L21 23.4 L15.4 23.8 L10.4 21.6 L7.2 17.4 L7 12 L9.8 7.8 L13.6 5.6 Z' fill='%23241d17'/> <path d='M17 6.2 L22 7.3 L25.5 10.5 L26.4 15.3 L24.6 19.6 L20.7 22.4 L15.7 22.8 L11.3 20.8 L8.5 17.1 L8.3 12.3 L10.8 8.6 L14.1 6.7 Z' fill='%234a4038'/> <path d='M17 6.2 L22 7.3 L25.5 10.5 L26.4 15.3 L17 16.4 L8.3 12.3 L10.8 8.6 L14.1 6.7 Z' fill='%23655a4f'/> <path d='M20.6 8.4 L24.4 11.4 L25.4 15.6 L21.4 16.2 L19.4 12 Z' fill='%238a5028' opacity='.85'/> <path d='M9.6 13.4 L14.2 15 L13.4 19.4 L9.6 17.6 Z' fill='%237d451f' opacity='.8'/> <path d='M14.8 17.6 L19.6 18.2 L18.6 21.8 L14.4 21.2 Z' fill='%236b3a1a' opacity='.7'/> <path d='M12.6 7.9 L17.4 8.4 L19.4 10 L14.6 10.6 L11.4 9.6 Z' fill='%239c9184'/> <path d='M13.4 8.5 L16.4 8.8 L17.6 9.7 L14.4 10 L12.6 9.4 Z' fill='%23c6bdb0'/> <path d='M17 16.4 L26.4 15.3 L24.6 19.6 L20.7 22.4 L15.7 22.8 L11.3 20.8 L8.5 17.1 Z' fill='%23181310' opacity='.42'/> </svg>") no-repeat center / contain;
+}
+.tear-2::before { transform: translateX(-50%) rotate(16deg); }
+.tear-3::before { transform: translateX(-50%) rotate(-22deg); }
+.tear-4::before { transform: translateX(-50%) rotate(7deg); }
+
+.tilt-a { transform: rotate(-.5deg); }
+.tilt-b { transform: rotate(.4deg); }
+.tilt-c { transform: rotate(-.25deg); }
+@media (prefers-reduced-motion: reduce) { .tilt-a, .tilt-b, .tilt-c { transform: none; } }
+
+/* ---------- bekendtgørelsen ---------- */
+.proclaim { max-width: 760px; margin: 0 auto; padding: 40px 40px 34px; text-align: center; }
+.proclaim-mark {
+  display: block; width: 150px; aspect-ratio: 1; margin: 0 auto 16px;
+  background: var(--ink);
+  -webkit-mask: url(../img/logo-d64-300x300.png) no-repeat center / contain;
+  mask: url(../img/logo-d64-300x300.png) no-repeat center / contain;
+}
+.proclaim-logotype {
+  display: block; width: min(420px, 92%); margin: 0 auto 16px; aspect-ratio: 780 / 216;
+  background: var(--ink);
+  -webkit-mask: url(../img/logotype-d64.svg) no-repeat center / contain;
+  mask: url(../img/logotype-d64.svg) no-repeat center / contain;
+}
+.proclaim h1 {
+  margin: 0; font-family: var(--carve); font-size: clamp(1.45rem, 3.2vw, 2.1rem);
+  font-weight: 700; letter-spacing: .045em; text-transform: uppercase; line-height: 1.2; color: var(--text);
+}
+.proclaim-rule { width: 190px; height: 1px; margin: 18px auto; background: var(--ink-2); opacity: .5; border: 0; }
+.proclaim p { margin: 0 auto; max-width: 58ch; font-size: var(--fs-base); line-height: 1.62; color: var(--text); }
+
+.acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; justify-content: center; }
+.btn {
+  display: inline-block; padding: 13px 24px; min-height: 44px;
+  font-family: var(--carve); font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: .13em; text-transform: uppercase; text-decoration: none;
+  background: var(--seal); color: var(--paper); border: 2px solid var(--seal);
+}
+.btn:hover { background: transparent; color: var(--seal); }
+/* Sekundærknappen er flademafhængig. Standard er brættet; papir er
+   undtagelsen der skrives ud. Omvendt gav den 1,04 nede på brættet. */
+.btn-2 { background: transparent; color: var(--paper); border-color: var(--edge); }
+.btn-2:hover { background: var(--paper); color: var(--dark); border-color: var(--paper); }
+.note .btn-2 { color: var(--ink); border-color: var(--ink-2); }
+.note .btn-2:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* ---------- afsnit ---------- */
+.act { padding: 62px 0; }
+.act-title {
+  font-family: var(--carve); font-size: clamp(1.35rem, 2.8vw, 1.9rem);
+  font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  margin: 0 0 10px; color: var(--paper);
+}
+.act-sub { margin: 0 0 26px; max-width: 64ch; color: var(--board-text); font-size: var(--fs-base); line-height: 1.6; }
+.act-sub-after { margin-top: 26px; }
+.stack-24 { margin-top: 24px; }
+.act-sub a, .rows a { color: var(--text); text-underline-offset: 3px; }
+.act-sub a:hover, .rows a:hover { color: var(--ember); }
+
+/* ---------- ugens sedler ---------- */
+.board { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 26px 24px; }
+.dag { padding: 26px 20px 22px; display: flex; flex-direction: column; }
+.dag-top {
+  margin: 0 0 4px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  font-family: var(--carve); font-size: var(--fs-sm); font-weight: 700;
+  letter-spacing: .17em; text-transform: uppercase; color: var(--seal);
+}
+.dag-dato { font-family: var(--body); font-size: var(--fs-2xs); letter-spacing: .06em; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+.dag-liste { list-style: none; margin: 0; padding: 0; flex: 1; }
+.post { padding: 11px 0; border-bottom: 1px solid var(--hair-ink); }
+.post:last-child { border-bottom: 0; }
+.post-navn { display: block; font-family: var(--carve); font-size: var(--fs-base); font-weight: 700; line-height: 1.3; color: var(--text); }
+.post-om { display: block; margin-top: 5px; font-size: var(--fs-md); line-height: 1.5; color: var(--text-dim); }
+.post-linje { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 8px; font-size: var(--fs-2xs); letter-spacing: .07em; text-transform: uppercase; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+.post-linje b { color: var(--text); font-weight: 700; }
+/* En tom dag er en oplysning, ikke et hul. Et program der kun viser de
+   dage der kører, lader en forælder gætte om resten. */
+.dag-tom { margin: 10px 0 0; font-size: var(--fs-md); font-style: italic; color: var(--text-dim); }
+.dag-uden { opacity: .78; }
+.dag.idag { outline: 2px solid rgba(124,29,19,.5); outline-offset: -2px; }
+
+/* Voks er mat og klumpet, ikke blank og rund. En radial-gradient laver
+   en skinnende knap; her er farven flad, kanten uregelmæssig hvor
+   voksen er presset ud, og skriften præget ned i stedet for trykt på. */
+.dag.idag::after {
+  content: 'I DAG'; position: absolute; right: 14px; top: 20px;
+  width: 56px; height: 54px; display: grid; place-items: center;
+  background: var(--seal); color: var(--wax-text);
+  clip-path: polygon(47% 1%, 60% 4%, 71% 2%, 82% 8%, 90% 17%, 95% 27%, 97% 39%, 99% 51%, 95% 62%, 97% 72%, 88% 80%, 79% 89%, 68% 95%, 56% 98%, 44% 99%, 33% 94%, 23% 88%, 14% 80%, 7% 70%, 3% 58%, 1% 46%, 4% 34%, 9% 23%, 17% 13%, 27% 6%, 37% 2%);
+  font-family: var(--carve); font-size: .62rem; font-weight: 700; letter-spacing: .13em;
+  text-shadow: 0 -1px 0 rgba(58,10,4,.85), 0 1px 0 rgba(255,214,196,.16);
+  box-shadow: 0 2px 4px rgba(30,10,4,.4);
+  transform: rotate(-9deg);
+}
+
+/* ---------- direkte på tavlen ---------- */
+.slab { color: var(--text); }
+.slab h3 { margin: 0 0 4px; font-family: var(--carve); font-size: var(--fs-sm); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ember); }
+.slab p { margin: 0; color: var(--text-dim); font-size: var(--fs-md); line-height: 1.6; }
+.slab a { color: var(--text); text-underline-offset: 3px; }
+.slab a:hover { color: var(--ember); }
+
+.rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hair); }
+.rows > li { padding: 15px 0; border-bottom: 1px solid var(--hair); color: var(--text-dim); font-size: var(--fs-base); line-height: 1.6; }
+.rows b, .rows strong { color: var(--text); font-weight: 700; }
+
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); gap: 0 46px; border-top: 1px solid var(--hair); }
+.grid2 > div { padding: 15px 0; border-bottom: 1px solid var(--hair); }
+.grid2 h4 { margin: 0 0 3px; font-family: var(--carve); font-size: var(--fs-base); font-weight: 700; letter-spacing: .03em; color: var(--text); }
+.grid2 p { margin: 0; color: var(--text-dim); font-size: var(--fs-md); line-height: 1.55; max-width: 48ch; }
+
+.fees { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hair); }
+.fees li { padding: 18px 0; border-bottom: 1px solid var(--hair); display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 22px; align-items: baseline; }
+.fee-navn { font-family: var(--carve); font-size: var(--fs-lg); font-weight: 700; letter-spacing: .04em; color: var(--text); }
+.fee-pris { font-family: var(--carve); font-size: var(--fs-xl); font-weight: 700; color: var(--ember); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.fee-om { grid-column: 1 / -1; margin: 0; color: var(--text-dim); font-size: var(--fs-md); line-height: 1.55; max-width: 62ch; }
+
+.addr-slab { font-style: normal; border-left: 2px solid var(--ember); padding: 4px 0 4px 20px; font-size: var(--fs-base); line-height: 1.85; color: var(--text); }
+.addr-slab a { color: var(--ember); text-underline-offset: 4px; }
+
+.links { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--hair); }
+.links li { border-bottom: 1px solid var(--hair); }
+.links a { display: block; padding: 12px 0; min-height: 44px; font-family: var(--carve); font-size: var(--fs-sm); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text); text-decoration: none; }
+.links a:hover { color: var(--ember); }
+
+.steps-slab { list-style: none; margin: 0; padding: 0; counter-reset: t; border-top: 1px solid var(--hair); }
+.steps-slab li { position: relative; counter-increment: t; padding: 15px 0 15px 46px; border-bottom: 1px solid var(--hair); color: var(--text-dim); font-size: var(--fs-base); line-height: 1.6; }
+.steps-slab li::before { content: counter(t); position: absolute; left: 0; top: 13px; width: 30px; text-align: center; font-family: var(--carve); font-size: var(--fs-xl); font-weight: 700; color: var(--ember); }
+.steps-slab b { color: var(--text); font-weight: 700; }
+.steps-slab a { color: var(--ember); }
+
+/* ---------- indersidernes hoved ---------- */
+.page-top { padding: 44px 0 52px; }
+.page-note { max-width: 780px; padding: 30px 32px 28px; }
+.crumbs { margin: 0 0 14px; font-family: var(--carve); font-size: var(--fs-2xs); letter-spacing: .16em; text-transform: uppercase; color: var(--text-dim); }
+.crumbs a { color: var(--seal); text-underline-offset: 3px; }
+.crumbs span { padding: 0 8px; opacity: .5; }
+.page-note h1 { margin: 0; font-family: var(--carve); font-size: clamp(1.5rem, 3.4vw, 2.2rem); font-weight: 700; letter-spacing: .035em; text-transform: uppercase; line-height: 1.18; color: var(--text); }
+.page-note .lede { margin: 16px 0 0; max-width: 60ch; font-size: var(--fs-lg); line-height: 1.55; color: var(--text); }
+
+.roster { list-style: none; margin: 0; padding: 0; }
+.roster li { display: grid; grid-template-columns: minmax(6rem, 9rem) minmax(0, 1fr); gap: 3px 26px; padding: 14px 0; border-bottom: 1px solid var(--hair); }
+.roster li:last-child { border-bottom: 0; }
+.roster-name { font-family: var(--carve); font-size: var(--fs-base); font-weight: 700; letter-spacing: .03em; color: var(--text); }
+.roster-role { font-size: var(--fs-md); line-height: 1.55; color: var(--text-dim); }
+
+/* Google leverer en hvid flade, så kalenderen får sin egen seddel at
+   ligge i frem for at stå som et hul i træet. */
+.cal { padding: 8px; }
+.cal iframe { display: block; width: 100%; height: 620px; border: 0; background: #fff; }
+
+.split { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 26px; align-items: start; }
+
+.lost { min-height: 62vh; display: grid; place-items: center; padding: 60px 0; }
+.lost .note { max-width: 560px; padding: 38px 34px 34px; text-align: center; }
+.lost h1 { margin: 0; font-family: var(--carve); font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; line-height: 1.2; color: var(--text); }
+.lost p { margin: 16px auto 0; max-width: 44ch; font-size: var(--fs-base); color: var(--text-dim); }
+
+/* ---------- foden ---------- */
+.floor { background: var(--wood); border-top: 2px solid var(--seam); padding: 50px 0 40px; }
+.floor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+.floor h2 { margin: 0 0 9px; font-family: var(--carve); font-size: var(--fs-2xs); font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--ember); }
+.floor p { margin: 0; font-size: var(--fs-md); line-height: 1.7; color: var(--paper); }
+.floor ul { list-style: none; margin: 0; padding: 0; font-size: var(--fs-md); line-height: 1.95; }
+.floor a { color: var(--paper); text-underline-offset: 3px; }
+.floor a:hover { color: var(--ember); }
+.floor-fine { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--seam-2); font-size: var(--fs-2xs); color: var(--board-dim); }
+
+/* ---------- tilpasning ---------- */
+@media (max-width: 900px) {
+  .beam ul { margin-left: 0; gap: 0 14px; }
+  .beam a { font-size: var(--fs-2xs); letter-spacing: .07em; min-height: 40px; }
+  .beam-mark { width: 100px; }
+  .beam-inner { min-height: 54px; padding: 6px 16px; gap: 4px 14px; }
+  .split { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .wrap { padding: 0 16px; }
+  .act { padding: 46px 0; }
+  .board { grid-template-columns: 1fr; gap: 22px; }
+  .tilt-a, .tilt-b, .tilt-c { transform: none; }
+  .dag.idag::after { right: 10px; width: 50px; height: 50px; }
+  .page-note { padding: 24px 20px 22px; }
+  .roster li { grid-template-columns: 1fr; }
+  .cal iframe { height: 520px; }
+  /* Bekendtgørelsen var højere end skærmen, så knapperne lå under
+     folden. Centreret brødtekst ved 27 tegn sættes venstrestillet. */
+  .proclaim { padding: 26px 20px 24px; }
+  .proclaim-mark { width: 96px; margin: 0 auto 12px; }
+  .proclaim-logotype { width: min(300px, 84%); margin-bottom: 12px; }
+  .proclaim h1 { font-size: 1.32rem; letter-spacing: .035em; }
+  .proclaim-rule { margin: 13px auto; width: 140px; }
+  .acts { margin-top: 20px; }
+  .proclaim p { text-align: left; }
+}
+
+/* Voksseglet er dekoration; "i dag" skal også nå en skærmlæser. */
+.sr-idag { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
