@@ -56,9 +56,12 @@
   --edge:       rgba(222, 211, 184, .55);
   --shadow:     rgba(26, 12, 0, .62);
   --shadow-2:   rgba(26, 12, 0, .45);
-  --veil-1:     rgba(22, 18, 14, .7);
-  --veil-2:     rgba(22, 18, 14, .82);
-  --veil-3:     rgba(22, 18, 14, .86);
+  /* Teksten står i venstre side, så sløret er vandret: mørkt hvor der
+     læses, næsten væk hvor maleriet skal have lov at være lyst. */
+  --scrim-h: linear-gradient(90deg, rgba(22,18,14,.8) 0%, rgba(22,18,14,.66) 38%, rgba(22,18,14,.28) 68%, rgba(22,18,14,.1) 100%);
+  --veil-1:     rgba(22, 18, 14, .5);
+  --veil-2:     rgba(22, 18, 14, .72);
+  --veil-3:     rgba(22, 18, 14, .78);
   --fox-a:      126 84 38;
   --fox-b:      104 68 28;
 
@@ -147,7 +150,9 @@ header.room { padding: 58px 0 74px; }
 }
 .room::after {
   content: ''; position: absolute; inset: 0; z-index: -1;
-  background-image: linear-gradient(180deg, var(--veil-2) 0%, var(--veil-1) 34%, var(--veil-3) 78%, var(--dark) 100%);
+  background-image:
+    var(--scrim-h),
+    linear-gradient(180deg, var(--veil-2) 0%, var(--veil-1) 34%, var(--veil-3) 78%, var(--dark) 100%);
 }
 .room-2::before {
   background-image: image-set(
@@ -157,7 +162,11 @@ header.room { padding: 58px 0 74px; }
     url(../img/wanderer-1600.jpg) type("image/jpeg") 2x);
   background-position: center 38%;
 }
-.room-2::after { background-image: linear-gradient(180deg, var(--dark) 0%, var(--veil-1) 22%, var(--veil-2) 76%, var(--dark) 100%); }
+.room-2::after {
+  background-image:
+    var(--scrim-h),
+    linear-gradient(180deg, var(--dark) 0%, var(--veil-1) 22%, var(--veil-2) 76%, var(--dark) 100%);
+}
 
 /* ---------- sedlen ---------- */
 .note {
@@ -183,11 +192,17 @@ header.room { padding: 58px 0 74px; }
 .tear-3 { clip-path: polygon(0.5% 0.9%, 8% 1.5%, 17% 1.4%, 27% 1.1%, 37% 1.2%, 48% 0.5%, 58% 0.9%, 68% 1.4%, 78% 1.4%, 87% 0.5%, 94% 0.5%, 99.8% 1.2%, 99.7% 11%, 99.6% 23%, 99.6% 36%, 99.1% 49%, 99.5% 62%, 99.8% 75%, 99.5% 87%, 99.5% 99.4%, 93% 99.5%, 84% 98.8%, 74% 99.6%, 63% 99.0%, 52% 99.5%, 41% 98.9%, 30% 98.5%, 20% 99.1%, 11% 98.5%, 0.4% 98.7%, 1.0% 86%, 0.3% 73%, 0.1% 60%, 0.7% 47%, 0.9% 34%, 0.9% 21%, 1.0% 10%); }
 .tear-4 { clip-path: polygon(0.4% 1.1%, 8% 0.7%, 17% 0.6%, 27% 1.1%, 37% 1.1%, 48% 0.7%, 58% 1.2%, 68% 0.7%, 78% 1.4%, 87% 0.8%, 94% 1.7%, 99.9% 0.8%, 99.2% 11%, 98.9% 23%, 99.4% 36%, 98.9% 49%, 98.9% 62%, 99.3% 75%, 99.2% 87%, 99.3% 99.0%, 93% 98.8%, 84% 99.3%, 74% 98.5%, 63% 98.5%, 52% 98.4%, 41% 98.6%, 30% 98.7%, 20% 98.4%, 11% 98.6%, 0.5% 99.2%, 1.1% 86%, 1.0% 73%, 0.8% 60%, 0.4% 47%, 0.6% 34%, 0.4% 21%, 0.0% 10%); }
 
+/* Pletterne måles i px, ikke i procent. En skjold på papir har samme
+   størrelse uanset hvor stort arket er, og i procent voksede den ene
+   plet til en håndfladestor sky på de brede sedler. De sidder to og to,
+   fordi fugt sjældent rammer ét sted alene. */
 .note {
   --foxing:
-    radial-gradient(circle at 14% 20%, rgb(var(--fox-a) / .15) 0 3%, transparent 9%),
-    radial-gradient(circle at 82% 74%, rgb(var(--fox-a) / .11) 0 4%, transparent 12%),
-    radial-gradient(circle at 38% 92%, rgb(var(--fox-b) / .1) 0 2.6%, transparent 8%);
+    radial-gradient(circle 22px at 14% 20%, rgb(var(--fox-a) / .13) 0%, rgb(var(--fox-a) / .05) 52%, transparent 100%),
+    radial-gradient(circle 11px at 19% 27%, rgb(var(--fox-b) / .11) 0%, transparent 100%),
+    radial-gradient(circle 26px at 82% 74%, rgb(var(--fox-a) / .10) 0%, rgb(var(--fox-a) / .04) 55%, transparent 100%),
+    radial-gradient(circle 9px  at 76% 69%, rgb(var(--fox-b) / .10) 0%, transparent 100%),
+    radial-gradient(circle 16px at 38% 92%, rgb(var(--fox-b) / .09) 0%, transparent 100%);
 }
 .tear-2 {
   --foxing:
@@ -245,7 +260,7 @@ header.room { padding: 58px 0 74px; }
   font-weight: 700; letter-spacing: .045em; text-transform: uppercase; line-height: 1.2; color: var(--text);
 }
 .proclaim-rule { width: 190px; height: 1px; margin: 18px auto; background: var(--ink-2); opacity: .5; border: 0; }
-.proclaim p { margin: 0 auto; max-width: 58ch; font-size: var(--fs-base); line-height: 1.62; color: var(--text); }
+.proclaim p { margin: 0 auto; max-width: 54ch; font-size: var(--fs-base); line-height: 1.62; color: var(--text); }
 
 .acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; justify-content: center; }
 .btn {
@@ -269,7 +284,7 @@ header.room { padding: 58px 0 74px; }
   font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
   margin: 0 0 10px; color: var(--paper);
 }
-.act-sub { margin: 0 0 26px; max-width: 64ch; color: var(--board-text); font-size: var(--fs-base); line-height: 1.6; }
+.act-sub { margin: 0 0 26px; max-width: 54ch; color: var(--board-text); font-size: var(--fs-base); line-height: 1.6; }
 .act-sub-after { margin-top: 26px; }
 .stack-24 { margin-top: 24px; }
 .act-sub a, .rows a { color: var(--text); text-underline-offset: 3px; }
@@ -294,7 +309,10 @@ header.room { padding: 58px 0 74px; }
 /* En tom dag er en oplysning, ikke et hul. Et program der kun viser de
    dage der kører, lader en forælder gætte om resten. */
 .dag-tom { margin: 10px 0 0; font-size: var(--fs-md); font-style: italic; color: var(--text-dim); }
-.dag-uden { opacity: .78; }
+/* Ingen opacity her. Sedlen ligger på papir der ikke falmer med, så
+   gennemsigtig tekst taber kontrast uden at vinde hierarki. Forskellen
+   bærer indholdet selv: en dag med hold har en liste, en tom dag har en
+   enkelt kursiv linje i dæmpet blæk. Det er rigeligt. */
 .dag.idag { outline: 2px solid rgba(124,29,19,.5); outline-offset: -2px; }
 
 /* Voks er mat og klumpet, ikke blank og rund. En radial-gradient laver
@@ -318,7 +336,7 @@ header.room { padding: 58px 0 74px; }
 .slab a { color: var(--text); text-underline-offset: 3px; }
 .slab a:hover { color: var(--ember); }
 
-.rows { list-style: none; margin: 0; padding: 0; max-width: 74ch; border-top: 1px solid var(--hair); }
+.rows { list-style: none; margin: 0; padding: 0; max-width: 55ch; border-top: 1px solid var(--hair); }
 .rows > li { padding: 15px 0; border-bottom: 1px solid var(--hair); color: var(--text-dim); font-size: var(--fs-base); line-height: 1.6; }
 .rows b, .rows strong { color: var(--text); font-weight: 700; }
 
@@ -331,7 +349,7 @@ header.room { padding: 58px 0 74px; }
 .fees li { padding: 18px 0; border-bottom: 1px solid var(--hair); display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 22px; align-items: baseline; }
 .fee-navn { font-family: var(--carve); font-size: var(--fs-lg); font-weight: 700; letter-spacing: .04em; color: var(--text); }
 .fee-pris { font-family: var(--carve); font-size: var(--fs-xl); font-weight: 700; color: var(--ember); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.fee-om { grid-column: 1 / -1; margin: 0; color: var(--text-dim); font-size: var(--fs-md); line-height: 1.55; max-width: 62ch; }
+.fee-om { grid-column: 1 / -1; margin: 0; color: var(--text-dim); font-size: var(--fs-md); line-height: 1.55; max-width: 55ch; }
 
 .addr-slab { font-style: normal; border-left: 2px solid var(--ember); padding: 4px 0 4px 20px; font-size: var(--fs-base); line-height: 1.85; color: var(--text); }
 .addr-slab a { color: var(--ember); text-underline-offset: 4px; }
@@ -349,7 +367,7 @@ header.room { padding: 58px 0 74px; }
 .links a { display: block; padding: 12px 0; min-height: 44px; font-family: var(--carve); font-size: var(--fs-sm); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text); text-decoration: none; }
 .links a:hover { color: var(--ember); }
 
-.steps-slab { list-style: none; margin: 0; padding: 0; counter-reset: t; border-top: 1px solid var(--hair); }
+.steps-slab { list-style: none; margin: 0; padding: 0; counter-reset: t; border-top: 1px solid var(--hair); max-width: 55ch; }
 .steps-slab li { position: relative; counter-increment: t; padding: 15px 0 15px 46px; border-bottom: 1px solid var(--hair); color: var(--text-dim); font-size: var(--fs-base); line-height: 1.6; }
 .steps-slab li::before { content: counter(t); position: absolute; left: 0; top: 13px; width: 30px; text-align: center; font-family: var(--carve); font-size: var(--fs-xl); font-weight: 700; color: var(--ember); }
 .steps-slab b { color: var(--text); font-weight: 700; }
@@ -359,12 +377,15 @@ header.room { padding: 58px 0 74px; }
 .page-top { padding: 44px 0 52px; }
 .page-note { max-width: 780px; padding: 30px 32px 28px; }
 .crumbs { margin: 0 0 14px; font-family: var(--carve); font-size: var(--fs-2xs); letter-spacing: .16em; text-transform: uppercase; color: var(--text-dim); }
+.crumbs ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: baseline; }
+/* Skilletegnet tegnes af arket, ikke af indholdet. En oplæser skal høre
+   "Forside, Om klubben", ikke en skråstreg imellem. */
+.crumbs li + li::before { content: '/'; padding: 0 8px; color: var(--text-dim); opacity: .5; }
 .crumbs a { color: var(--seal); text-underline-offset: 3px; }
-.crumbs span { padding: 0 8px; opacity: .5; }
 .page-note h1 { margin: 0; font-family: var(--carve); font-size: clamp(1.5rem, 3.4vw, 2.2rem); font-weight: 700; letter-spacing: .035em; text-transform: uppercase; line-height: 1.18; color: var(--text); }
-.page-note .lede { margin: 16px 0 0; max-width: 60ch; font-size: var(--fs-lg); line-height: 1.55; color: var(--text); }
+.page-note .lede { margin: 16px 0 0; max-width: 54ch; font-size: var(--fs-lg); line-height: 1.55; color: var(--text); }
 
-.roster { list-style: none; margin: 0; padding: 0; max-width: 82ch; }
+.roster { list-style: none; margin: 0; padding: 0; max-width: 68ch; }
 .roster li { display: grid; grid-template-columns: minmax(6rem, 9rem) minmax(0, 1fr); gap: 3px 26px; padding: 14px 0; border-bottom: 1px solid var(--hair); }
 .roster li:last-child { border-bottom: 0; }
 .roster-name { font-family: var(--carve); font-size: var(--fs-base); font-weight: 700; letter-spacing: .03em; color: var(--text); }
@@ -390,10 +411,16 @@ header.room { padding: 58px 0 74px; }
 .floor ul { list-style: none; margin: 0; padding: 0; font-size: var(--fs-md); line-height: 1.95; }
 .floor a { color: var(--paper); text-underline-offset: 3px; }
 .floor a:hover { color: var(--ember); }
-.floor-fine { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--seam-2); font-size: var(--fs-2xs); color: var(--board-dim); }
+.floor-fine { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--seam-2); font-size: var(--fs-2xs); color: var(--board-dim); max-width: 58ch; }
 
 /* ---------- tilpasning ---------- */
 @media (max-width: 900px) {
+  /* Smal skærm: teksten fylder hele bredden, så sløret må ikke tone ud
+     mod højre. Det flader ud i stedet, ellers lander sidste halvdel af
+     hver linje på den lyse del af maleriet. Til gengæld må det være
+     lettere hele vejen, netop fordi det ikke skal nå ned i .1 til sidst.
+     Målt: under .44 falder brødteksten under 4,5. */
+  :root { --scrim-h: linear-gradient(90deg, rgba(22,18,14,0.56) 0%, rgba(22,18,14,0.52) 62%, rgba(22,18,14,0.48) 100%); }
   .beam ul { margin-left: 0; gap: 0 14px; }
   .beam a { font-size: var(--fs-2xs); letter-spacing: .07em; min-height: 40px; }
   .beam-mark { width: 100px; }
