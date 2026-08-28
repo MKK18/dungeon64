@@ -13,6 +13,23 @@
 <link rel="stylesheet" href="/assets/css/tavle.css">
 </head>
 <body>
+<!--
+DIRECTION CONTRACT · seed b9116d0d · grit og malerier bagved, pinnet af brugeren
+THESIS: Kroens opslagstavle. Klubbens egen kode kalder allerede skemaet
+quest-board, så formen lå i deres eget sprog. Afviser den rene flade og det
+midterstillede hero-arrangement.
+OWN-WORLD: Snavset nærsort rum med Martins sal bagved som stemning. Alt
+indhold står på grove sedler med revet kant, naglet op, mørk skrift på lyst
+papir. Voksstempel som markering. Cinzel til det indbrændte, Vollkorn til
+læsning. Korn over hele fladen, intet er rent.
+STORY: Den besøgende træder ind i et mørkt rum, ser tavlen med ugens opslag,
+finder sit eget og melder sig ind fra den store bekendtgørelse.
+FIRST VIEWPORT: Indbrændt bjælke med menuen. Under den rummet med Martins sal
+bagved og midt i det den store bekendtgørelse som én stor naglet seddel med
+mærket, navnet og de to handlinger.
+FORM: Opslagstavlen, bygget efter at brugeren bad om grit og malerier bagved.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+-->
 
   <a class="skip-link" href="#tavlen">Spring til indhold</a>
 
@@ -30,16 +47,16 @@
   </nav>
 
   <header class="room">
-    <div class="wrap" style="padding-top:44px;padding-bottom:52px">
+    <div class="wrap">
       <div class="note proclaim tilt-c">
-        <span class="proclaim-mark" role="img" aria-label="Dungeon 64s mærke"></span>
+        <span class="proclaim-mark" role="img" aria-label="Dungeon 64s mærke, en terning med spidshat, kraniestav og dolk"></span>
         <span class="proclaim-logotype" role="img" aria-label="Dungeon 64"></span>
         <h1>Figur-, kort- og rollespil for alle</h1>
-        <hr class="proclaim-rule">
-        <p>Dungeon 64 er et værksted, en spilforsyning, et mødested og en nørdehule på Prags Boulevard. Vi spiller Dungeons &amp; Dragons, Warhammer 40K, Age of Sigmar og The Old World, vi drafter Magic, vi maler figurer og vi printer i 3D. For unge, voksne, orker og mennesker.</p>
+        <div class="proclaim-rule" aria-hidden="true"></div>
+        <p>Dungeon 64 er et <b>værksted</b>, en <b>spilforsyning</b>, et <b>mødested</b> og en <b>nørdehule</b> på Prags Boulevard. Vi spiller Dungeons &amp; Dragons, Warhammer 40K, Age of Sigmar og The Old World, vi drafter Magic, vi maler figurer og vi printer i 3D. For unge, voksne, orker og mennesker.</p>
         <div class="acts">
-          <a class="btn" href="#tavlen">Se ugens opslag</a>
-          <a class="btn btn-2" href="/tavle/indmeldelse/">Bliv medlem</a>
+          <a class="btn" href="#kontingent">Bliv medlem</a>
+          <a class="btn btn-2" href="#tavlen">Se ugens opslag</a>
         </div>
       </div>
     </div>
@@ -148,9 +165,9 @@
       <h2 class="act-title">Sådan er her</h2>
       <div class="slab">
         <ul class="rows">
-          <li><b>Du skal ikke købe noget først.</b> Vi har borde, terræn du kan låne på stedet, og en 3D-printer. <a href="/tavle/om/">Se hvad huset har</a>.</li>
+          <li><b>Du skal ikke købe noget først.</b> Vi har borde, terræn du kan låne på stedet og en 3D-printer. <a href="/tavle/om/">Se hvad huset har</a>.</li>
           <li><b>Alle skal føle sig trygge og respekteret</b>, uanset køn, alder eller etnicitet. Selv halv-elvere og halv-orker er velkomne. <a href="/tavle/regler/">Læs husets syv regler</a>.</li>
-          <li><b>Kig forbi først, hvis du vil.</b> En enkelt spildag koster 40 kr. som gæst, og der er ingen tilmelding. <a href="/tavle/kalender/">Se hvornår der er åbent</a>.</li>
+          <li><b>Kig forbi først, hvis du vil.</b> En enkelt spildag koster 40 kr. som gæst og der er ingen tilmelding. <a href="/tavle/kalender/">Se hvornår der er åbent</a>.</li>
         </ul>
       </div>
     </div>
@@ -160,7 +177,7 @@
     <div class="wrap">
       <h2 class="act-title">Kontingent</h2>
       <p class="act-sub">Medlemskab koster fra 100 til 1.000 kr. for perioden, alt efter om du er voksen, ung eller støttemedlem. Kontingentet løber fra 13. august til 31. december 2026.</p>
-      <div class="acts" style="justify-content:flex-start">
+      <div class="acts">
         <a class="btn" href="/tavle/indmeldelse/">Se de tre medlemskaber</a>
         <a class="btn btn-2" href="mailto:dungeond64@gmail.com">Skriv om en plads til et barn</a>
       </div>
