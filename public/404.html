@@ -4,39 +4,83 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Siden findes ikke · Dungeon 64</title>
-<meta name="robots" content="noindex">
-<meta name="theme-color" content="#131a22">
+<meta name="description" content="Siden her findes ikke.">
+<meta name="theme-color" content="#16120E">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="preload" href="/assets/fonts/cinzel.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/vollkorn.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/tavle.css">
 </head>
 <body>
 
-<header class="topbar">
-  <div class="topbar-inner">
-    <a class="brand" href="/" aria-label="Dungeon 64 · forside">
-      <img class="mark" src="/assets/img/logo-d64-300x300.png" width="48" height="48" alt="" decoding="async">
-      <span class="brand-logotype" aria-hidden="true"></span>
-    </a>
-    <nav class="topnav" id="topnav" aria-label="Hovedmenu">
-      <a class="btn btn-red btn-sm" href="/">Til forsiden</a>
-    </nav>
-  </div>
-</header>
+  <a class="skip-link" href="#main">Spring til indhold</a>
 
-<main id="main">
-  <section class="visit" style="border-bottom:0">
-    <div class="container">
-      <p class="eyebrow">Naturlig 1</p>
-      <h2>Du er faret vild i dungeonen</h2>
-      <div class="taper-center" aria-hidden="true"></div>
-      <p class="lede" style="max-width:44ch">Siden her findes ikke. Måske tog du et forkert sving ved trolden.</p>
-      <div class="hero-ctas" style="margin-top:36px">
-        <a class="btn btn-red" href="/">Tilbage til forsiden&nbsp;&nbsp;→</a>
-        <a class="btn" href="/kalender/">Se kalenderen</a>
+  <nav class="beam" aria-label="Hovedmenu">
+    <div class="beam-inner">
+      <a href="/" aria-label="Dungeon 64, forsiden"><span class="beam-mark" role="img" aria-label="Dungeon 64"></span></a>
+      <ul>
+        <li><a href="/">Forside</a></li>
+        <li><a href="/om/">Om klubben</a></li>
+        <li><a href="/indmeldelse/">Indmeldelse</a></li>
+        <li><a href="/kalender/">Kalender</a></li>
+        <li><a href="/regler/">Regler og tryghed</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="room lost" id="main">
+    <div class="wrap">
+      <div class="note tear-3 tilt-b">
+        <h1>Du er faret vild i dungeonen</h1>
+        <p>Naturlig 1. Siden her findes ikke. Måske tog du et forkert sving ved trolden.</p>
+        <div class="acts">
+          <a class="btn" href="/">Tilbage til forsiden</a>
+          <a class="btn btn-2" href="/kalender/">Se kalenderen</a>
+        </div>
       </div>
     </div>
-  </section>
-</main>
+  </main>
 
+  <footer class="floor">
+    <div class="wrap">
+      <div class="floor-grid">
+        <div>
+          <h2>Dungeon 64</h2>
+          <p>Folkeoplysende forening på Amagerbro for figur-, kort- og rollespil samt miniaturehobby.<br>
+          Pavillonen, Prags Boulevard 50a<br>2300 København S<br>
+          <a href="mailto:dungeond64@gmail.com">dungeond64@gmail.com</a></p>
+        </div>
+        <div>
+          <h2>Sider</h2>
+          <ul>
+            <li><a href="/om/">Om klubben</a></li>
+            <li><a href="/indmeldelse/">Indmeldelse</a></li>
+            <li><a href="/kalender/">Kalender og booking</a></li>
+            <li><a href="/regler/">Ordensregler og vedtægter</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Dokumenter</h2>
+          <ul>
+            <li><a href="https://docs.google.com/document/d/1GcFueKKS6mi0-sZHofbvWIyRvpbyuGpB4iEu3Vz4jX4/edit?usp=sharing">Vedtægter</a></li>
+            <li><a href="https://docs.google.com/document/d/1QMIMZHDI-MuBDFklo9zzyLZE-B5Tr-65SEzSZY8RuJo/edit?usp=sharing">Mødereferater 2025</a></li>
+            <li><a href="https://docs.google.com/document/d/107oh1U_j5Sm7NUteaShTrr9EOuNR7RcVkP0bMh379DU/edit?usp=sharing">Mødereferater 2024</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Følg med</h2>
+          <ul>
+            <li><a href="https://discord.gg/BfZjYGbtkN">Discord</a></li>
+            <li><a href="https://www.facebook.com/Dungeon64/">Facebook</a></li>
+            <li><a href="https://www.instagram.com/dungeon_64/">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="floor-fine">© Dungeon 64 · Folkeoplysende forening på Amagerbro<br>
+      Baggrundskunst (public domain, via Wikimedia Commons): John Martin, <em>Pandemonium</em> (1841) og Caspar David Friedrich, <em>Vandreren over tågehavet</em> (1818).</p>
+    </div>
+  </footer>
+
+<script src="/assets/js/tavle.js" defer></script>
 </body>
 </html>

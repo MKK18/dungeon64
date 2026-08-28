@@ -56,9 +56,9 @@
   --edge:       rgba(222, 211, 184, .55);
   --shadow:     rgba(26, 12, 0, .62);
   --shadow-2:   rgba(26, 12, 0, .45);
-  --veil-1:     rgba(22, 18, 14, .5);
-  --veil-2:     rgba(22, 18, 14, .72);
-  --veil-3:     rgba(22, 18, 14, .78);
+  --veil-1:     rgba(22, 18, 14, .7);
+  --veil-2:     rgba(22, 18, 14, .82);
+  --veil-3:     rgba(22, 18, 14, .86);
   --fox-a:      126 84 38;
   --fox-b:      104 68 28;
 
@@ -84,7 +84,7 @@ html {
   scrollbar-color: var(--wood-2) var(--dark);
   scrollbar-width: thin;
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 78px;
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
@@ -132,6 +132,10 @@ body {
 
 /* ---------- rummet: maleriet bagved ---------- */
 .room { position: relative; isolation: isolate; }
+/* Bekendtgørelsen skal have luft over sig, ellers klistrer den op under
+   bjælken. Stod som inline-polstring i den oprindelige version og gik
+   tabt da inline-stilene blev ryddet ud. */
+header.room { padding: 58px 0 74px; }
 .room::before {
   content: ''; position: absolute; inset: 0; z-index: -2;
   background: url(../img/pandemonium-1400.jpg) center 34% / cover no-repeat;
@@ -331,6 +335,14 @@ body {
 
 .addr-slab { font-style: normal; border-left: 2px solid var(--ember); padding: 4px 0 4px 20px; font-size: var(--fs-base); line-height: 1.85; color: var(--text); }
 .addr-slab a { color: var(--ember); text-underline-offset: 4px; }
+
+/* Gløderød er brættets accent. Oven på et maleri giver den 2,88 selv
+   efter sløret, altså under 3 for grafik og under 4,5 for tekst.
+   På maleriet skifter den derfor til papirfarve, ligesom fokusringen. */
+.room .addr-slab { border-left-color: var(--paper); }
+.room .addr-slab a { color: var(--paper); }
+.room :focus-visible { outline-color: var(--paper); }
+.room .note :focus-visible, .room .note:focus-visible { outline-color: var(--seal); }
 
 .links { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--hair); }
 .links li { border-bottom: 1px solid var(--hair); }
