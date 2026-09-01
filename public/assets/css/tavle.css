@@ -319,8 +319,12 @@ header.room { padding: 58px 0 74px; }
 }
 .dag-dato { font-family: var(--body); font-size: var(--fs-2xs); letter-spacing: .06em; color: var(--text-dim); font-variant-numeric: tabular-nums; }
 .dag-liste { list-style: none; margin: 0; padding: 0; flex: 1; }
-.post { padding: 11px 0; border-bottom: 1px solid var(--hair-ink); }
-.post:last-child { border-bottom: 0; }
+/* Stregen skiller to synlige poster. Den maa ikke haenge under den
+   sidste, og det gjorde den: en dag kan have to poster hvor kun den ene
+   koerer i denne uge, og :last-child ramte den skjulte. Derfor skal
+   baade posten og dens forgaenger vaere synlige, foer der tegnes. */
+.post { padding: 11px 0; }
+.post:not([hidden]) ~ .post:not([hidden]) { border-top: 1px solid var(--hair-ink); }
 .post-navn { display: block; font-family: var(--carve); font-size: var(--fs-base); font-weight: 700; line-height: 1.3; color: var(--text); }
 .post-om { display: block; margin-top: 5px; font-size: var(--fs-md); line-height: 1.5; color: var(--text-dim); }
 .post-linje { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 8px; font-size: var(--fs-2xs); letter-spacing: .07em; text-transform: uppercase; color: var(--text-dim); font-variant-numeric: tabular-nums; }
