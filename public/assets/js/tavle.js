@@ -84,3 +84,53 @@
     }
   }
 })();
+
+/* Foldemenuen.
+
+   Bjælken er klæbende. På en telefon lagde fem punkter plus ordbilledet
+   sig i tre rækker og tog 138px af skærmen hele vejen ned gennem siden.
+   Foldet ned er den 62px.
+
+   Knappen ligger skjult i markup'en og bliver først slået til her. Uden
+   JavaScript står menuen udfoldet som før, hvilket er den rigtige
+   tilstand at falde tilbage til: alle fem links er synlige og virker.  */
+(function () {
+  var bjaelke = document.querySelector('.beam');
+  if (!bjaelke) return;
+  var knap = bjaelke.querySelector('.beam-toggle');
+  var menu = bjaelke.querySelector('#hovedmenu');
+  if (!knap || !menu) return;
+
+  knap.hidden = false;
+  bjaelke.setAttribute('data-fold', '');
+
+  function saet(aaben) {
+    if (aaben) bjaelke.setAttribute('data-aaben', '');
+    else bjaelke.removeAttribute('data-aaben');
+    knap.setAttribute('aria-expanded', aaben ? 'true' : 'false');
+  }
+
+  knap.addEventListener('click', function () {
+    saet(knap.getAttribute('aria-expanded') !== 'true');
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && knap.getAttribute('aria-expanded') === 'true') {
+      saet(false);
+      knap.focus();
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (knap.getAttribute('aria-expanded') !== 'true') return;
+    if (!bjaelke.contains(e.target)) saet(false);
+  });
+
+  /* Over brudpunktet står menuen som en almindelig række. Bliver den
+     lukket i det skjulte, står aria-expanded og lyver om noget der er
+     synligt, så tilstanden nulstilles med bredden. */
+  var bred = window.matchMedia('(min-width: 821px)');
+  function tjek() { if (bred.matches) saet(false); }
+  bred.addEventListener ? bred.addEventListener('change', tjek) : bred.addListener(tjek);
+  tjek();
+})();

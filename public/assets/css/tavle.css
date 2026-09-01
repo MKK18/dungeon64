@@ -133,6 +133,25 @@ body {
 .beam a:hover { color: var(--ember); }
 .beam a[aria-current="page"] { color: var(--ember); border-bottom-color: var(--ember); }
 
+/* Foldeknappen findes kun når scriptet har slået den til. Uden script
+   bliver menuen stående som den altid har gjort, og så skal der ikke
+   sidde en knap der ikke virker. */
+.beam-toggle {
+  display: none; margin-left: auto; align-items: center; gap: 10px;
+  min-height: 44px; padding: 0 4px; background: none; border: 0; cursor: pointer;
+  font-family: var(--carve); font-size: var(--fs-xs); font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--paper);
+}
+.beam-streger { position: relative; display: block; width: 20px; height: 2px; background: currentColor; }
+.beam-streger::before, .beam-streger::after {
+  content: ''; position: absolute; left: 0; width: 20px; height: 2px; background: currentColor;
+}
+.beam-streger::before { top: -6px; }
+.beam-streger::after  { top: 6px; }
+.beam-toggle[aria-expanded="true"] .beam-streger { background: transparent; }
+.beam-toggle[aria-expanded="true"] .beam-streger::before { top: 0; transform: rotate(45deg); }
+.beam-toggle[aria-expanded="true"] .beam-streger::after  { top: 0; transform: rotate(-45deg); }
+
 /* ---------- rummet: maleriet bagved ---------- */
 .room { position: relative; isolation: isolate; }
 /* Bekendtgørelsen skal have luft over sig, ellers klistrer den op under
@@ -449,3 +468,30 @@ header.room { padding: 58px 0 74px; }
 
 /* Voksseglet er dekoration; "i dag" skal også nå en skærmlæser. */
 .sr-idag { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Menuen bryder før layoutet gør. Fem punkter plus ordbilledet kræver
+   omkring 760px, og under det lagde bjælken sig i tre rækker og åd 138px
+   af en telefonskærm, permanent, fordi den er klæbende.
+
+   Alt herunder hænger på [data-fold], som scriptet sætter. Uden script
+   ingen attribut, og så står menuen udfoldet og brydende som før.
+
+   Blokken ligger sidst med vilje: 900- og 620-blokkene rører de samme
+   egenskaber på .beam-inner, og den sidste af dem vinder. */
+@media (max-width: 820px) {
+  .beam[data-fold] .beam-inner { flex-wrap: nowrap; gap: 0; }
+  .beam[data-fold] .beam-toggle { display: inline-flex; }
+  .beam[data-fold] ul {
+    display: none; position: absolute; left: 0; right: 0; top: 100%;
+    margin: 0; padding: 8px 24px 18px; flex-direction: column; gap: 0;
+    background: var(--wood); border-bottom: 2px solid var(--seam);
+    box-shadow: 0 18px 30px var(--shadow);
+  }
+  .beam[data-fold][data-aaben] ul { display: flex; }
+  .beam[data-fold] li { border-top: 1px solid var(--seam-2); }
+  .beam[data-fold] li:first-child { border-top: 0; }
+  .beam[data-fold] a { display: flex; min-height: 52px; border-bottom: 0; padding-left: 14px; }
+  /* I en lodret liste er en understregning et forkert mærke. Den
+     aktive side får en bjælke i venstre kant i stedet. */
+  .beam[data-fold] a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--ember); }
+}

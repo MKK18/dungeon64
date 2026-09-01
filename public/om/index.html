@@ -18,7 +18,10 @@
   <nav class="beam" aria-label="Hovedmenu">
     <div class="beam-inner">
       <a href="/" aria-label="Dungeon 64, forsiden"><span class="beam-mark" role="img" aria-label="Dungeon 64"></span></a>
-      <ul>
+      <button class="beam-toggle" type="button" aria-expanded="false" aria-controls="hovedmenu" hidden>
+        <span class="beam-streger" aria-hidden="true"></span>Menu
+      </button>
+      <ul id="hovedmenu">
         <li><a href="/">Forside</a></li>
         <li><a href="/om/" aria-current="page">Om klubben</a></li>
         <li><a href="/indmeldelse/">Indmeldelse</a></li>
